@@ -4,15 +4,15 @@ import logging
 from channels import Group
 from channels.sessions import channel_session
 from .models import Room, Question, Contestant
-from enum import Enum
+#from enum import Enum
 
 log = logging.getLogger(__name__)
 
-class Color(Enum):
-    NEW_ROOM = 0
-    QUESTION = 1
-    RESULT = 2
-    SUMMARY = 3
+#class Color(Enum):
+#    NEW_ROOM = 0
+#    QUESTION = 1
+#    RESULT = 2
+#    SUMMARY = 3
 
 @channel_session
 def ws_connect(message):
