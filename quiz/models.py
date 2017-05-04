@@ -5,7 +5,7 @@ class Room(models.Model):
 
 class Question(models.Model):
     # Room
-    question = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
     # Question
     question_text = models.CharField(max_length=200)
     # Answers
