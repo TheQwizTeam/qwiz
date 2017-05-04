@@ -29,3 +29,31 @@ def ws_connect(message):
     Group('quiz-'+room, channel_layer=message.channel_layer).add(message.reply_channel)
 
     message.channel_session['room'] = room
+
+@channel_session
+def ws_receive(message):
+    # Look up the room from the channel session, bailing if it doesn't exist
+    try:
+        room = message.channel_session['room']
+    except KeyError:
+        log.debug('no room in channel_session')
+        return
+
+    # Parse out a chat message from the content text, bailing if it doesn't
+    # conform to the expected message format.
+    try:
+        data = json.loads(message['text'])
+    except ValueError:
+        log.debug("ws message isn't json text=%s", text)
+        return
+    
+    if set(data.keys()) != set(('handle', 'message')):
+        log.debug("ws message unexpected format data=%s", data)
+        return
+
+    if data:
+        log.debug('chat message room=%s handle=%s message=%s', 
+            room, data['handle'], data['message'])
+
+        # See above for the note about Group
+        Group('quiz-'+room, channel_layer=message.channel_layer).send({'text': json.dumps(m.as_dict())})
