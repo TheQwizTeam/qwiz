@@ -12,7 +12,7 @@ class QuestionInline(admin.TabularInline):
 
 class QuestionVaultInline(admin.TabularInline):
     model = QuestionVault
-    exttra = 1
+    extra = 1
 
 class RoomAdmin(admin.ModelAdmin):
     fieldsets = [
