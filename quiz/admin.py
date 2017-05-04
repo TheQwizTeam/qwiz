@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Room, Question, Contestant
+from .models import Room, Question, Contestant, QuestionVault
 
 class ContestantInline(admin.TabularInline):
     model = Contestant
@@ -20,3 +20,4 @@ class RoomAdmin(admin.ModelAdmin):
 admin.site.register(Room, RoomAdmin)
 admin.site.register(Question)
 admin.site.register(Contestant)
+admin.site.register(QuestionVault)
