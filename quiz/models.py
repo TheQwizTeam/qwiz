@@ -21,9 +21,11 @@ class QuestionVault(models.Model):
 class Question(models.Model):
     # Room
     room = models.ForeignKey(Room, on_delete=models.CASCADE)   
-
     # Questions
     questions = models.ForeignKey(QuestionVault, null=True)
+
+    def __str__(self):
+        return self.room.name + " : " + self.questions
 
 class Contestant(models.Model):
     # Room
@@ -32,6 +34,8 @@ class Contestant(models.Model):
     handle = models.CharField(max_length=200)
     # user's score
     score = models.IntegerField(default=0)
+    # has contestant completed
+    complete = models.IntegerField(default=0)
 
     def __str__(self):
         return self.handle
