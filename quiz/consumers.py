@@ -56,4 +56,4 @@ def ws_receive(message):
             room, data['handle'], data['message'])
 
         # See above for the note about Group
-        Group('quiz-'+room, channel_layer=message.channel_layer).send({'text': json.dumps(m.as_dict())})
+        Group('quiz-'+room, channel_layer=message.channel_layer).send({'text': json.dumps(data)})
