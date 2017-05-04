@@ -1,1 +1,2 @@
-web: python manage.py runserver 0.0.0.0:5000 
+web: daphne quiz.asgi:channel_layer --port $PORT --bind 0.0.0.0 -v2
+worker: python manage.py runworker -v2
