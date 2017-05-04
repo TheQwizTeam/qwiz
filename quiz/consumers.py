@@ -88,7 +88,7 @@ def ws_receive(message):
             response_data['incorrect_answer_3'] = q.incorrect_answer_3
         elif type == 2:
             log.debug('RESULT')
-            if(message == 'correct')
+            if (message == 'correct'):
                 contestant = Contestant.objects.get(handle=contestantHandle)
                 score = contestant.score + 1
                 contestant.update(score=score)
