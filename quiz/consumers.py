@@ -26,7 +26,7 @@ def ws_connect(message):
     room, created = Room.objects.get_or_create(name=room_name)
 
     log.debug('quiz monster connect room_name=%s handle=%s client=%s:%s', 
-        roon.name, handle, message['client'][0], message['client'][1])
+        room.name, handle, message['client'][0], message['client'][1])
     
     # Need to be explicit about the channel layer so that testability works
     # This may be a FIXME?
