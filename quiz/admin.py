@@ -21,13 +21,7 @@ class RoomAdmin(admin.ModelAdmin):
     inlines = [QuestionInline]
     inlines = [ContestantInline]
 
-class QuestionAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'field': ['room']}),
-        inlines = [QuestionVaultInline]
-    ]
-
 admin.site.register(Room, RoomAdmin)
-admin.site.register(Question, QuestionAdmin)
+admin.site.register(Question)
 admin.site.register(Contestant)
 admin.site.register(QuestionVault)
