@@ -97,8 +97,13 @@ def ws_receive(message):
             contestants = []
             for c in Contestant.objects.filter(room__name=room_name):
                 contestants.append(tuple((c.handle, c.score)))
+                if c.complete != 1:
+                    return
             response_data['type'] = type
             response_data['scores'] = contestants
 
         # See above for the note about Group
-        Group('quiz-'+room_name, channel_layer=message.channel_layer).send({'text': json.dumps(response_data)})
+        if (type == 0 or type == 1 or type == 2):
+            message.reply_channel.send({'text': json.dumps(response_data)})
+        else :
+            Group('quiz-'+room_name, channel_layer=message.channel_layer).send({'text': json.dumps(response_data)})
