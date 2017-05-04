@@ -70,6 +70,8 @@ def ws_receive(message):
             room_name, data['type'], data['handle'], data['message'])
 
         type = data['type']
+        contestantHandle = data['handle']
+        message = data['message']
 
         response_data = {}
 
@@ -86,13 +88,17 @@ def ws_receive(message):
             response_data['incorrect_answer_3'] = q.incorrect_answer_3
         elif type == 2:
             log.debug('RESULT')
+            if(message == 'correct')
+                contestant = Contestant.objects.get(handle=contestantHandle)
+                score = contestant.score + 1
+                contestant.update(score=score)
         elif type == 3:
             log.debug('SUMMARY')
-            contestants = []
-            for c in Contestant.objects.filter(room__name=room_name):
-                contestants.append(tuple((c.handle, c.score))
-            response_data['type'] = type
-            response_data['scores'] = contestants
+            contestants = [] 
+            for c in Contestant.objects.filter(room__name=room_name): 
+                contestants.append(tuple((c.handle, c.score)) 
+            response_data['type'] = type 
+            response_data['scores'] = contestants 
 
         # See above for the note about Group
         Group('quiz-'+room_name, channel_layer=message.channel_layer).send({'text': json.dumps(response_data)})
