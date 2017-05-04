@@ -35,7 +35,7 @@ class Contestant(models.Model):
     # user's score
     score = models.IntegerField(default=0)
     # has contestant completed
-    complete = models.IntegerField(default=0)
+    complete = models.IntegerField(default=1)
 
     def __str__(self):
         return self.handle
