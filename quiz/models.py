@@ -15,5 +15,9 @@ class Question(models.Model):
     incorrect_answer_3 = models.CharField(max_length=200)
 
 class Contestant(models.Model):
+    # Room
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    # Handle i.e. username
     handle = models.CharField(max_length=200)
+    # user's score
     score = models.IntegerField(default=0)
