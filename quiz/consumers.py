@@ -88,6 +88,11 @@ def ws_receive(message):
             log.debug('RESULT')
         elif type == 3:
             log.debug('SUMMARY')
+            contestants = []
+            for c in Contestant.objects.filter(room__name=room_name):
+                contestants.append(tuple((c.handle, c.score))
+            response_data['type'] = type
+            response_data['scores'] = contestants
 
         # See above for the note about Group
         Group('quiz-'+room_name, channel_layer=message.channel_layer).send({'text': json.dumps(response_data)})
