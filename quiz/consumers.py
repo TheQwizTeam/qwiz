@@ -71,7 +71,6 @@ def ws_receive(message):
 
         type = data['type']
         contestantHandle = data['handle']
-        message = data['message']
 
         response_data = {}
 
@@ -88,10 +87,10 @@ def ws_receive(message):
             response_data['incorrect_answer_3'] = q.incorrect_answer_3
         elif type == 2:
             log.debug('RESULT')
-            if (message == 'correct'):
+            if (data['message'] == 'correct'):
                 contestant = Contestant.objects.get(handle=contestantHandle)
-                score = contestant.score + 1
-                contestant.update(score=score)
+                contestant.score++
+                contestant.save()
             response_data['type'] = type
         elif type == 3:
             log.debug('SUMMARY')
