@@ -104,6 +104,9 @@ def ws_receive(message):
                     return
             response_data['type'] = type
             response_data['scores'] = contestants
+            # Delete all contestants
+            for c in Contestant.objects.filter(room__name=room_name):
+                c.delete()
 
         # See above for the note about Group
         if (type == 0 or type == 1 or type == 2):
