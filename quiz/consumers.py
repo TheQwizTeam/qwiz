@@ -3,6 +3,7 @@ import json
 import logging
 from channels import Group
 from channels.sessions import channel_session
+from .models import Room, Question, Contestant
 
 log = logging.getLogger(__name__)
 
