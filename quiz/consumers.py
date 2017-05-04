@@ -4,8 +4,15 @@ import logging
 from channels import Group
 from channels.sessions import channel_session
 from .models import Room, Question, Contestant
+from enum import Enum
 
 log = logging.getLogger(__name__)
+
+class Color(Enum):
+    NEW_ROOM = 0
+    QUESTION = 1
+    RESULT = 2
+    SUMMARY = 3
 
 @channel_session
 def ws_connect(message):
@@ -27,12 +34,15 @@ def ws_connect(message):
 
     log.debug('quiz monster connect room_name=%s handle=%s client=%s:%s', 
         room.name, handle, message['client'][0], message['client'][1])
+
+    contestant = room.contestant_set.create(handle=handle)
     
     # Need to be explicit about the channel layer so that testability works
     # This may be a FIXME?
     Group('quiz-'+room.name, channel_layer=message.channel_layer).add(message.reply_channel)
 
     message.channel_session['room_name'] = room.name
+    message.channel_session['handle'] = contestant.name
 
 @channel_session
 def ws_receive(message):
