@@ -35,7 +35,7 @@ def ws_connect(message):
     log.debug('quiz monster connect room_name=%s handle=%s client=%s:%s', 
         room.name, handle, message['client'][0], message['client'][1])
 
-    contestant = room.contestant_set.create(handle=handle)
+    contestant = room.contestant_set.get_or_create(handle=handle)
     
     # Need to be explicit about the channel layer so that testability works
     # This may be a FIXME?
