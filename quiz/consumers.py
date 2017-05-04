@@ -42,7 +42,7 @@ def ws_connect(message):
     Group('quiz-'+room.name, channel_layer=message.channel_layer).add(message.reply_channel)
 
     message.channel_session['room_name'] = room.name
-    message.channel_session['handle'] = contestant.name
+    message.channel_session['handle'] = contestant.handle
 
 @channel_session
 def ws_receive(message):
@@ -68,6 +68,17 @@ def ws_receive(message):
     if data:
         log.debug('chat message room_name=%s type=%s handle=%s message=%s', 
             room_name, data['type'], data['handle'], data['message'])
+
+        type = data['type']
+
+        if type == 0:
+            log.debug('NEW ROOM')
+        elif type == 1:
+            log.debug('QUESTION')
+        elif type == 2:
+            log.debug('RESULT')
+        elif type == 3:
+            log.debug('SUMMARY')
 
         # See above for the note about Group
         Group('quiz-'+room_name, channel_layer=message.channel_layer).send({'text': json.dumps(data)})
