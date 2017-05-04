@@ -6,9 +6,7 @@ class Room(models.Model):
     def __str__(self):
         return self.name
 
-class Question(models.Model):
-    # Room
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+class QuestionVault(models.Model):
     # Question
     question_text = models.CharField(max_length=200)
     # Answers
@@ -19,6 +17,13 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
+
+class Question(models.Model):
+    # Room
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)   
+
+    # Questions
+    questions = models.ForeignKey(QuestionVault, null=True)
 
 class Contestant(models.Model):
     # Room

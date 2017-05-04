@@ -1,0 +1,38 @@
+[
+  {
+    "model": "quiz.question",
+    "pk": 1,
+    "fields": {
+      "room": 1,
+      "question_text": "In computing, how many bits are there in a nibble",
+      "correct_answer": "4",
+      "incorrect_answer_1": "2",
+      "incorrect_answer_2": "7",
+      "incorrect_answer_3": "16"
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 2,
+    "fields": {
+      "room": 1,
+      "question_text": "By whom was the C++ language developed?",
+      "correct_answer": "Bjarne Stroustrup",
+      "incorrect_answer_1": "Jon Skeet",
+      "incorrect_answer_2": "Bill Gates",
+      "incorrect_answer_3": "Brian Johnson"
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 3,
+    "fields": {
+      "room": 1,
+      "question_text": "What is the following binary number '00101100' converted to decial",
+      "correct_answer": "44",
+      "incorrect_answer_1": "118",
+      "incorrect_answer_2": "74",
+      "incorrect_answer_3": "63"
+    }
+  }
+]
