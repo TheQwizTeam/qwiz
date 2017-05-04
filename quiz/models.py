@@ -24,9 +24,6 @@ class Question(models.Model):
     # Questions
     questions = models.ForeignKey(QuestionVault, null=True)
 
-    def __str__(self):
-        return self.room.name + " : " + self.questions
-
 class Contestant(models.Model):
     # Room
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
