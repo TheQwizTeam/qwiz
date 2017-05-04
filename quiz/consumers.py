@@ -26,6 +26,6 @@ def ws_connect(message):
     
     # Need to be explicit about the channel layer so that testability works
     # This may be a FIXME?
-    Group('quiz-'+label, channel_layer=message.channel_layer).add(message.reply_channel)
+    Group('quiz-'+room, channel_layer=message.channel_layer).add(message.reply_channel)
 
-    message.channel_session['room'] = room.label
+    message.channel_session['room'] = room
