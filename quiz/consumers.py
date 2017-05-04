@@ -71,14 +71,22 @@ def ws_receive(message):
 
         type = data['type']
 
+        response_data = {}
+
         if type == 0:
             log.debug('NEW ROOM')
         elif type == 1:
             log.debug('QUESTION')
+            q = Question.objects.filter(room__name=room_name)[0].questions
+            response_data['question_text'] = q.question_text
+            response_data['correct_answer'] = q.correct_answer
+            response_data['incorrect_answer_1'] = q.incorrect_answer_1
+            response_data['incorrect_answer_2'] = q.incorrect_answer_2
+            response_data['incorrect_answer_3'] = q.incorrect_answer_3
         elif type == 2:
             log.debug('RESULT')
         elif type == 3:
             log.debug('SUMMARY')
 
         # See above for the note about Group
-        Group('quiz-'+room_name, channel_layer=message.channel_layer).send({'text': json.dumps(data)})
+        Group('quiz-'+room_name, channel_layer=message.channel_layer).send({'text': json.dumps(response_data)})
