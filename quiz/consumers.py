@@ -95,6 +95,9 @@ def ws_receive(message):
         elif type == 3:
             log.debug('SUMMARY')
             contestants = []
+            finisher = Contestant.objects.get(handle=contestantHandle)
+            finisher.complete = 1;
+            finisher.save()
             for c in Contestant.objects.filter(room__name=room_name):
                 contestants.append(tuple((c.handle, c.score)))
                 if c.complete != 1:
