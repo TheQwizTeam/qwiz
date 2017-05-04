@@ -78,6 +78,7 @@ def ws_receive(message):
         elif type == 1:
             log.debug('QUESTION')
             q = Question.objects.filter(room__name=room_name)[0].questions
+            response_data['type'] = type
             response_data['question_text'] = q.question_text
             response_data['correct_answer'] = q.correct_answer
             response_data['incorrect_answer_1'] = q.incorrect_answer_1
