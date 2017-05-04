@@ -89,7 +89,7 @@ def ws_receive(message):
             log.debug('RESULT')
             if (data['message'] == 'correct'):
                 contestant = Contestant.objects.get(handle=contestantHandle)
-                contestant.score++
+                contestant.score+=1
                 contestant.save()
             response_data['type'] = type
         elif type == 3:
