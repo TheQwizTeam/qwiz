@@ -92,6 +92,7 @@ def ws_receive(message):
                 contestant = Contestant.objects.get(handle=contestantHandle)
                 score = contestant.score + 1
                 contestant.update(score=score)
+            response_data['type'] = type
         elif type == 3:
             log.debug('SUMMARY')
             contestants = []
