@@ -36,17 +36,35 @@ python -m pip install -U pip
 
 If it is not installed, follow [this link](https://pip.pypa.io/en/stable/installing/) to install pip via the `get-pip.py` script. It really does make installation a breeze.
 
+#### Heroku
+
+Heroku is our PaaS of choice for this project; providing the means to create a scalable cloud based application, coupled with continuous integration and delivery, and a suite of useful add-ons.
+
+Heroku takes care of the nitty gritty infrastructure details, and allows the team to focus on the Qwiz application itself. 
+
+The Heroku Command Line Interface (CLI) is a tool for creating and managing Heroku apps from the command line.
+
+The download and installation instructions for the Heroku CLI can be found [here](https://devcenter.heroku.com/articles/heroku-cli).
+
 #### Database: PostgreSQL
 
-TODO
+The Qwiz Django application utilizes a PostgreSQL object-relational database management system. This is used for persisting rooms, questions, etc.
+
+PostgreSQL download and installation instructions can be found [here](https://www.postgresql.org/download/).
 
 #### Channels: Redis
 
-TODO
+The Qwiz Django application requires the ability to handle WebSockets. Channels extends Django to provide this capability, among other benefits.
 
-#### Heroku CLI
+You can read about Channels in all its gory details [here](http://channels.readthedocs.io/en/stable/).
 
-TODO
+In a nutshell, Channels separates Django into two process types:
+
+ - Producers: handles HTTP and WebSockets
+  - Consumers: runs views, websocket handlers and background tasks
+
+  These processes communicate via a protocol called ASGI, over Channels. The recommended Channels backend is Redis. Download and installation instruction for Redis can be found
+  [here](https://redis.io/topics/quickstart).
 
 ### Installing
 
@@ -54,7 +72,8 @@ This section includes a step by step guide, with examples, that will explain how
 
 #### Python Virtual Environment
 
-A Python virtual environment is used to create an isolated Python environment for Python projects. Project dependencies (i.e. Python packages) are then installed within a virtual environment, as opposed to a sytem-wide isntallation.
+A Python virtual environment is used to create an isolated Python environment for Python projects. Project dependencies (i.e. Python packages) are then installed within a virtual environment, as
+opposed to a sytem-wide isntallation.
 
 The standard library distributed with Python 3 includes the `venv` module, for the creation of virtual environments.
 
@@ -108,19 +127,19 @@ TODO
 
 ## Running the tests
 
-Explanation of how manual and automated tests are conducted.
+TODO Explanation of how manual and automated tests are conducted.
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+TODO Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-Components, OpenSource or otherwise, than gave this project life.
+TODO Components, OpenSource or otherwise, than gave this project life.
 
 ## Contributing
 
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
+TODO Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
 
 ## Versioning
 
@@ -128,12 +147,12 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 ### Authors
 
-A list of contributors who participated in this project.
+TODO A list of contributors who participated in this project.
 
 ### License
 
-This project is licensed under the MIT License; see the LICENSE.md file for details
+TODO This project is licensed under the MIT License; see the LICENSE.md file for details
 
 ### Acknowledgments
 
-Recognition of code and inspiratation received from others that helped shape this project.
+TODO Recognition of code and inspiratation received from others that helped shape this project.
