@@ -174,6 +174,20 @@ Simply add the Heroku git remote to unlock the power of the Heroku CLI.
 git remote add heroku https://git.heroku.com/quiz-monster.git
 ````
 
+## Local deployment
+
+Now that all pre-requisites have been acquired, the virtual environment has been activated, and all dependencies are installed and configured, it is time to run Qwiz locally.
+
+```
+heroku local
+````
+
+Hey presto!!
+
+Navigate to http://localhost:5000/ see the fruits of your labour.
+
+Also, try logging in to http://localhost:5000/admin/ with the superuser username and password you just created. Feel free to explore this automatically generated admin site; primarily used for content management.
+
 ## Running the tests
 
 TODO Explanation of how manual and automated tests are conducted.
