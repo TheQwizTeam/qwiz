@@ -197,8 +197,8 @@ TODO Explanation of how manual and automated tests are conducted.
 TODO Add additional notes about how to deploy this on a live system
 
 ## Built With
-
-TODO Components, OpenSource or otherwise, than gave this project life.
+ - [Django](https://www.djangoproject.com/) - Python web framework.
+ - [Angular](https://angular.io/) - Front-end web application platform.
 
 ## Contributing
 
@@ -209,8 +209,9 @@ TODO Please read CONTRIBUTING.md for details on our code of conduct, and the pro
 [SemVer](http://semver.org/) is used for versioning. For the versions available, see the tags on this repository.
 
 ### Authors
-
-TODO A list of contributors who participated in this project.
+[Scott Hulme](https://github.com/zeroish),
+[Michael Purdy](https://github.com/0mpurdy),
+[Christopher Kane](https://github.com/christopherkane)
 
 ### License
 
