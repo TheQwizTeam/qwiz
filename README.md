@@ -61,7 +61,7 @@ You can read about Channels in all its gory details [here](http://channels.readt
 In a nutshell, Channels separates Django into two process types:
 
  - Producers: handles HTTP and WebSockets
-  - Consumers: runs views, websocket handlers and background tasks
+ - Consumers: runs views, websocket handlers and background tasks
 
   These processes communicate via a protocol called ASGI, over Channels. The recommended Channels backend is Redis. Download and installation instruction for Redis can be found
   [here](https://redis.io/topics/quickstart).
@@ -115,15 +115,64 @@ pip freeze
 
 #### Database: PostgreSQL
 
-TODO
+The Django application determines the database URL from an environment variable: `DATABASE_URL`. If this environment variable is not available, Django will default to a locally hosted database called "qwiz".
 
-#### Channels: Redis
+This databse value is utilized in the Django application's settings module (`filesettings.py`).
 
-TODO
+Heroku provides an optional PostgreSQL server add-on per application. When this addon has been configured the corresponding `DATABASE_URL` environment variable will be automatically configured within the application's environment, overriding the default value. You can use this URL directly, if you know it, or create the default database on your local PostgreSQL server. The latter is recommended.
+
+Create the database for Qwiz from the PostgreSQL interactive terminal, psql.
+
+```
+CREATE DATABASE "qwiz";.
+```
+
+Apply the databse migrations.
+
+```
+python manage.py migrate
+```
+
+Create a superuser account; a user (added to the user table within your new database) that will have all permissions within this Django project.
+
+```bash
+python manage.py createsuperuser
+```
+
+**N.B. You may wish to give your local database a different name, host it somewhere else, use a different port etc. If you wish to customize your databse in any way don't forget to update your environment variable appropriately. The connection URI is formatted as follows:**
+
+```bash
+DATABASE_URL=postgresql://[user[:password]@][netloc][:port][/dbname]
+```
+
+#### Channels
+
+Similarly the Django application determines the Redis URL from an environment variable: `REDIS_URL`. If this environment variable is not available, Django will default to a locally hosted redis instance, on port 6379.
+
+Heroku provides an optional Redis server add-on per application. When this addon has been configured the corresponding `REDIS_URL` environment variable will be automatically configured within the application's environment, overriding the default value.
+
+However, for a truly local development environment it is recommended to start an local instance of the Redis server installed in the previous section.
+
+```
+redis-server
+```
+
+A Redis instance will be running on localhost, at port 6379, by default. You can verify this with some ping pong.
+
+```
+redis-cli ping
+PONG
+```
 
 #### Heroku CLI
 
-TODO
+Finally, configure Heroku to connect this repository to the the Heroku application.
+
+Simply add the Heroku git remote to unlock the power of the Heroku CLI.
+
+```
+git remote add heroku https://git.heroku.com/quiz-monster.git
+````
 
 ## Running the tests
 
