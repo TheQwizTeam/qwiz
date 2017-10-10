@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'quiz.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-        'default': dj_database_url.config(default="postgres:///quizmonster", conn_max_age=500)
+        'default': dj_database_url.config(default="postgres:///qwiz", conn_max_age=500)
 }
 
 # Update database configuration with $DATABASE_URL.
