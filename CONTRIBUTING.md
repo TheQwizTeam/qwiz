@@ -6,7 +6,7 @@ Qwiz uses the pull-request GIT model. All bug fixes / new features should be cre
 ## Getting Started
 - Make sure you have a [GitHub Account](https://github.com/signup/free)
 - Open an Issue for the issue, if one does not already exist
-- Fork the repositoryon GitHub
+- Fork the repository on GitHub
 
 ## Making Changes
 - Create a topic branch to house your work, usually branched off `master` using `git checkout -b my_fix master`

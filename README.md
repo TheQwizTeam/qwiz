@@ -54,12 +54,14 @@ The Qwiz Django application utilizes a PostgreSQL object-relational database man
 
 PostgreSQL download and installation instructions can be found [here](https://www.postgresql.org/download/). Please note that Django does *not* support version 10, please use version 9.4 or 9.6.
 
-Basic Linux install:
-
+##### On Linux
 ```
 $ sudo apt-get install postgresql-9.6 postgresql-server-dev-9.6
 $ sudo service postgresql start
 ```
+
+##### On macOS
+Follow [these steps](https://postgresapp.com/) to download, install, and configured the Postgres Mac app.
 
 
 #### Channels: Redis
@@ -75,6 +77,7 @@ In a nutshell, Channels separates Django into two process types:
 
   These processes communicate via a protocol called ASGI, over Channels. The recommended Channels backend is Redis. Download and installation instruction for Redis can be found
   [here](https://redis.io/topics/quickstart).
+
 
 ### Installing
 
@@ -99,7 +102,7 @@ It can then be activated as follows:
 source ~/.virtualenvs/qwiz/bin/activate
 ```
 
-N.B. When you have finished with your virtual envornment it can be deactived as follows:
+N.B. For the remainder of this guide, and development, you should stay in your virtual environment. When you have finished with your virtual environment it can be deactived as follows:
 
 ```bash
 deactivate
