@@ -36,6 +36,7 @@ python -m pip install -U pip
 
 If it is not installed, follow [this link](https://pip.pypa.io/en/stable/installing/) to install pip via the `get-pip.py` script. It really does make installation a breeze.
 
+
 #### Heroku
 
 Heroku is our PaaS of choice for this project; providing the means to create a scalable cloud based application, coupled with continuous integration and delivery, and a suite of useful add-ons.
@@ -46,11 +47,20 @@ The Heroku Command Line Interface (CLI) is a tool for creating and managing Hero
 
 The download and installation instructions for the Heroku CLI can be found [here](https://devcenter.heroku.com/articles/heroku-cli).
 
+
 #### Database: PostgreSQL
 
 The Qwiz Django application utilizes a PostgreSQL object-relational database management system. This is used for persisting rooms, questions, etc.
 
-PostgreSQL download and installation instructions can be found [here](https://www.postgresql.org/download/).
+PostgreSQL download and installation instructions can be found [here](https://www.postgresql.org/download/). Please note that Django does *not* support version 10, please use version 9.4 or 9.6.
+
+Basic Linux install:
+
+```
+$ sudo apt-get install postgresql-9.6 postgresql-server-dev-9.6
+$ sudo service postgresql start
+```
+
 
 #### Channels: Redis
 
