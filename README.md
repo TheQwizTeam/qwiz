@@ -198,35 +198,24 @@ Navigate to http://localhost:5000/ see the fruits of your labour.
 
 Also, try logging in to http://localhost:5000/admin/ with the superuser username and password you just created. Feel free to explore this automatically generated admin site; primarily used for content management.
 
-## Running the tests
-
-TODO Explanation of how manual and automated tests are conducted.
-
-## Deployment
-
-TODO Add additional notes about how to deploy this on a live system
-
 ## Built With
  - [Django](https://www.djangoproject.com/) - Python web framework.
  - [Angular](https://angular.io/) - Front-end web application platform.
 
 ## Contributing
 
-TODO Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
 
 ## Versioning
 
 [SemVer](http://semver.org/) is used for versioning. For the versions available, see the tags on this repository.
 
 ### Authors
-[Scott Hulme](https://github.com/zeroish),
-[Michael Purdy](https://github.com/0mpurdy),
 [Christopher Kane](https://github.com/christopherkane)
+[Michael Purdy](https://github.com/0mpurdy),
+[Paul Crooks](https://github.com/pgcrooks)
+[Scott Hulme](https://github.com/zeroish),
 
 ### License
 
-TODO This project is licensed under the MIT License; see the LICENSE.md file for details
-
-### Acknowledgments
-
-TODO Recognition of code and inspiratation received from others that helped shape this project.
+This project is licensed under the MIT License; see the LICENSE.md file for details
