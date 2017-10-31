@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  quizServiceUrl: "wss://the-qwiz-engine.herokuapp.com/quiz/"
 };

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from "../../environments/environment";
 
 declare var ReconnectingWebSocket;
 
@@ -15,8 +16,11 @@ export class QuizService {
   questionNumber: number;
   scores;
   maxQuestions = 6;
+  apiUrl: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.apiUrl = environment.quizServiceUrl;
+  }
 
   /**
    * Check if the websocket is ready to send and receive messages
@@ -27,7 +31,7 @@ export class QuizService {
 
   open(roomDetails) {
     this.currentHandle = roomDetails.handle;
-    const url = 'ws://localhost:8000/quiz/' + roomDetails.roomName + '/' + roomDetails.handle + '/';
+    const url = this.apiUrl + roomDetails.roomName + '/' + roomDetails.handle + '/';
     console.log(url);
     this.websocket = new ReconnectingWebSocket(url);
     this.websocket.onopen = () => {
