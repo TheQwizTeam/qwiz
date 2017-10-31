@@ -87,3 +87,11 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+\.vscode/
+
+quiz/static/
+
+quiz/templates/index\.html
+
+client/yarn\.lock

@@ -1,0 +1,54 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+/* You can add global styles to this file, and also import other style files */
+.background {
+    min-width: 100vw;
+    min-height: 100vh;
+    background: #232323;
+    margin-top: -16px;
+    margin-left: -8px;
+    padding-bottom: 34px;
+}
+
+.right-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.responsive-padding {
+    padding-top: 34px;
+}
+
+.container > md-card { 
+    background-color: white;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.title {
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}

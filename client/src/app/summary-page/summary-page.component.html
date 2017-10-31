@@ -1,0 +1,13 @@
+<div class="background responsive-padding">
+  <div class="container">
+    <md-card>
+      <md-card-title>Summary</md-card-title>
+      <md-card-content>
+        <p *ngFor="let score of scores"><strong>{{score[0]}}: </strong> {{score[1]}}</p>
+        <div class="right-buttons">
+          <button md-button (click)="startNew()">Start New Game</button>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

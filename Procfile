@@ -1,2 +1,2 @@
 web: daphne quiz.asgi:channel_layer --port $PORT --bind 0.0.0.0 -v2
-worker: python manage.py runworker -v2
+worker: cd client && ng build --output-path=../quiz/static --base-href="/static/" && cd ../ && mv quiz/static/index.html quiz/templates && python manage.py runworker -v2

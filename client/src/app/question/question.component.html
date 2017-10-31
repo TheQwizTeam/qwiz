@@ -1,0 +1,11 @@
+<div class="background responsive-padding">
+  <div class="container">
+    <md-card>
+      <md-card-title>Question</md-card-title>
+      <md-card-content>
+        {{question}}
+        <button *ngFor="let answer of answers" md-button (click)="submitAnswer(answer)" class="answer-button">{{answer}}</button>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
