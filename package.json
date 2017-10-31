@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "npm install",
+    "start": "npm install --prefix ./client/node_modules",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
