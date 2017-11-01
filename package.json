@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "cd client && npm install"
+    "start": "cd ./client && npm install"
   },
   "engines": {
   },
