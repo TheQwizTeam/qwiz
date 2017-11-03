@@ -3,7 +3,7 @@ import datetime
 from django.utils import timezone
 from django.test import TestCase
 
-from .models import Room, QuestionVault, Contestant
+from .models import Tag, Question, Room, Contestant
 
 
 class QuizModelTests(TestCase):
@@ -27,7 +27,7 @@ class QuizModelTests(TestCase):
         """
         Add a new question with no text.
         """
-        q = QuestionVault()
+        q = Question()
         with self.assertRaises(TypeError):
             q.save()
 
@@ -35,7 +35,7 @@ class QuizModelTests(TestCase):
         """
         Add a new question.
         """
-        q = QuestionVault(question_text='foo')
+        q = Question(question_text='foo')
         self.assertEqual(q.__str__(), 'foo')
 
     def test_new_contestant_no_name(self):
