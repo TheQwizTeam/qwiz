@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npm install --prefix './client'",
-    "postinstall": "ng build --output-path=../quiz/static --base-href='/static/' --env=dev --aot -prod && cd ../ && mv quiz/static/index.html quiz/templates"
+    "start": "npm install --prefix './client'"
   },
   "engines": {
     "node": "6.11.1",
