@@ -34,6 +34,10 @@ export class NewRoomComponent implements OnInit {
     this.router.navigate(['waiting', formValue.roomName, formValue.handle]);
   }
 
+  joinroom(something) {
+    
+  }
+
   home() {
     this.router.navigate(['landing']);
   }

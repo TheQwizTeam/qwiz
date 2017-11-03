@@ -3,13 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
-    "start": "npm install",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --output-path=../quiz/static --base-href='/static/' --env=dev && cd ../ && mv quiz/static/index.html quiz/templates"
+    "start": "npm install --prefix './client'",
+    "postinstall": "ng build --output-path=../quiz/static --base-href='/static/' --env=prod && cd ../ && mv quiz/static/index.html quiz/templates"
   },
   "engines": {
     "node": "6.11.1",
