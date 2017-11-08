@@ -187,7 +187,7 @@ Simply add the Heroku git remote to unlock the power of the Heroku CLI.
 git remote add heroku https://git.heroku.com/quiz-monster.git
 ````
 
-## Local deployment
+## Local Deployment
 
 Now that all pre-requisites have been acquired, the virtual environment has been activated, and all dependencies are installed and configured, it is time to run Qwiz locally.
 
@@ -200,6 +200,26 @@ Hey presto!!
 Navigate to http://localhost:5000/ see the fruits of your labour.
 
 Also, try logging in to http://localhost:5000/admin/ with the superuser username and password you just created. Feel free to explore this automatically generated admin site; primarily used for content management.
+
+## Running the Tests
+
+Currently there is a small Server unittest pack which can be run using Django alone (Heroku and Redis are not required for the tests to run).
+
+To run the test suite, issue the following command:
+
+```
+$ python manage.py test quiz
+Creating test database for alias 'default'...
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.016s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+Any failures will be listed with a backtrace.
+
 
 ## Built With
  - [Django](https://www.djangoproject.com/) - Python web framework.
