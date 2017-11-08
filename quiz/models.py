@@ -55,16 +55,16 @@ class Room(models.Model):
 class Contestant(models.Model):
     """
     Contestant model used to define a quiz contestant.
-    Each contestant has a handle (aka name), a score and a quiz-completed flag.
+    Each contestant has a handle (aka name), a score and a completed flag.
     """
-    # Contestant's room
+    # Room name
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     # Handle i.e. username
     handle = models.CharField(max_length=200)
-    # user's score
+    # Score
     score = models.IntegerField(default=0)
     # has contestant completed
-    complete = models.IntegerField(default=1)
+    complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.handle
