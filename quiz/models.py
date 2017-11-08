@@ -1,4 +1,6 @@
-from django.db import models
+from django.db import models, transaction, IntegrityError
+import string
+import random
 
 class Tag(models.Model):
     # Unique value of tag
@@ -26,12 +28,28 @@ class Room(models.Model):
     # Room name, as supplied by user
     name = models.CharField(max_length=200)
     # Unique room code
-    code = models.SlugField(unique=True)
+    code = models.SlugField(unique=True, max_length=5)
     # Variable number of questions in a room
     questions = models.ManyToManyField(Question)
 
     def __str__(self):
         return self.name
+
+    def code_generator(self, size=5):
+        chars = string.ascii_lowercase + string.digits
+        return ''.join(random.choice(chars) for _ in range(size))
+
+    def save(self, *args, **kwargs):
+        # Generate a unique code for the room
+        if not self.code:
+            self.code = self.code_generator()
+        # Save the room. If the code clashes generate a new one and try again.
+        while True:
+            try:
+                with transaction.atomic():
+                    return super(Room, self).save(*args, **kwargs)
+            except IntegrityError:
+                self.code = self.code_generator()
 
 class Contestant(models.Model):
     # Contestant's room

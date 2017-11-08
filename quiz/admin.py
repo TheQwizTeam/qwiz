@@ -7,6 +7,7 @@ class ContestantInline(admin.TabularInline):
     extra = 1
 
 class RoomAdmin(admin.ModelAdmin):
+    exclude = ['code']
     inlines = [
         ContestantInline,
     ]
