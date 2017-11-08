@@ -1,54 +1,96 @@
-import datetime
-
-from django.utils import timezone
 from django.test import TestCase
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 
 from .models import Tag, Question, Room, Contestant
 
 
-class QuizModelTests(TestCase):
+class TagModelTests(TestCase):
+    """
+    Tag Model test cases.
+    """
+    def test_tag(self):
+        """
+        Add a tag.
+        """
+        t = Tag(text='foo_tag')
+        t.save()
+        self.assertEqual(str(t), 'foo_tag')
 
-    def test_new_room_no_name(self):
+    def test_tag_no_text(self):
         """
-        Add a new room with no name.
+        Add a tag with no text.
         """
-        r = Room()
-        with self.assertRaises(TypeError):
-            r.save()
+        tag1 = Tag()
+        with self.assertRaises(ValidationError):
+            tag1.full_clean()
 
-    def test_new_room(self):
+    def test_tag_dup(self):
         """
-        Add a new room.
+        Add a tag and then a duplicate.
         """
-        r = Room(name='test_room')
-        self.assertEqual(r.__str__(), 'test_room')
+        tag1 = Tag(text='bar_tag')
+        tag1.save()
+        tag2 = Tag(text='bar_tag')
+        with self.assertRaises(ValidationError):
+            tag2.full_clean()
 
-    def test_new_question_vault_no_str(self):
+
+class QuestionModelTests(TestCase):
+    """
+    Question Model test cases.
+    """
+    def test_new_question_no_text(self):
         """
         Add a new question with no text.
         """
-        q = Question()
-        with self.assertRaises(TypeError):
-            q.save()
+        question = Question()
+        with self.assertRaises(ValidationError):
+            question.full_clean()
 
-    def test_new_question_vault(self):
+    def test_new_question(self):
         """
         Add a new question.
         """
-        q = Question(question_text='foo')
-        self.assertEqual(q.__str__(), 'foo')
+        question = Question(question_text='foo')
+        self.assertEqual(str(question), 'foo')
 
-    def test_new_contestant_no_name(self):
+
+class RoomModelTests(TestCase):
+    """
+    Room Model test cases.
+    """
+    def test_room_no_name(self):
+        """
+        Add a room with no name.
+        """
+        room = Room()
+        with self.assertRaises(ValidationError):
+            room.full_clean()
+
+    def test_room(self):
+        """
+        Add a room.
+        """
+        room = Room(name='test_room')
+        self.assertEqual(str(room), 'test_room')
+
+
+class ContestantModelTests(TestCase):
+    """
+    Contestant Model test cases.
+    """
+    def test_contestant_no_name(self):
         """
         Add a new Contestant with no name.
         """
-        c = Contestant()
-        with self.assertRaises(TypeError):
-            c.save()
+        contestant = Contestant()
+        with self.assertRaises(ValidationError):
+            contestant.full_clean()
 
-    def test_new_contestant(self):
+    def test_contestant(self):
         """
         Add a new Contestant.
         """
-        c = Contestant(handle='bob')
-        self.assertEqual(c.__str__(), 'bob')
+        contestant = Contestant(handle='bob')
+        self.assertEqual(str(contestant), 'bob')
