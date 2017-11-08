@@ -1,7 +1,8 @@
 """
-Quiz Models.
+Qwiz Models.
 """
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class Tag(models.Model):
     """
@@ -68,3 +69,7 @@ class Contestant(models.Model):
 
     def __str__(self):
         return self.handle
+
+    def clean(self):
+        if self.room == None:
+            raise ValidationError(_('Contestant must be in a Room'))

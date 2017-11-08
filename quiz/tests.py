@@ -87,13 +87,25 @@ class ContestantModelTests(TestCase):
         """
         Add a new Contestant with no name.
         """
-        contestant = Contestant()
+        room = Room(name='test_room')
+        contestant = Contestant(room=room)
         with self.assertRaises(ValidationError):
+            contestant.full_clean()
+
+    def test_contestant_no_room(self):
+        """
+        Add a new Contestant with no room.
+        """
+        contestant = Contestant(handle='test_room')
+        with self.assertRaises(Room.DoesNotExist):
             contestant.full_clean()
 
     def test_contestant(self):
         """
         Add a new Contestant.
         """
-        contestant = Contestant(handle='bob')
+        room = Room(name='test_room')
+        contestant = Contestant(handle='bob', room=room)
         self.assertEqual(str(contestant), 'bob')
+        self.assertEqual(contestant.score, 0)
+        self.assertEqual(contestant.complete, False)
