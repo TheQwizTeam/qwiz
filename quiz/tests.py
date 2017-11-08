@@ -1,6 +1,9 @@
+"""
+Qwiz Model unittests.
+"""
+
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from django.db import IntegrityError
 
 from .models import Tag, Question, Room, Contestant
 
@@ -13,9 +16,9 @@ class TagModelTests(TestCase):
         """
         Add a tag.
         """
-        t = Tag(text='foo_tag')
-        t.save()
-        self.assertEqual(str(t), 'foo_tag')
+        tag = Tag(text='foo_tag')
+        tag.save()
+        self.assertEqual(str(tag), 'foo_tag')
 
     def test_tag_no_text(self):
         """
