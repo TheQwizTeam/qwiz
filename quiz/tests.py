@@ -81,6 +81,18 @@ class RoomModelTests(TestCase):
         with self.assertRaises(ValidationError):
             room.full_clean()
 
+    def test_room_dup_code(self):
+        """
+        Add rooms and edit them to have the same code.
+        """
+        room1 = Room(name='room1')
+        room1.save()
+        room2 = Room(name='room2')
+        room2.save()
+        room2.code = room1.code
+        with self.assertRaises(ValidationError):
+            room2.full_clean()
+
     def test_room(self):
         """
         Add a room.
