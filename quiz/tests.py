@@ -38,6 +38,16 @@ class TagModelTests(TestCase):
         with self.assertRaises(ValidationError):
             tag2.full_clean()
 
+    def test_tag_case(self):
+        """
+        Attempt to add two identical tags with upper/lower case letters.
+        """
+        tag1 = Tag(text='foo')
+        tag1.save()
+        tag2 = Tag(text='FOO')
+        with self.assertRaises(ValidationError):
+            tag2.full_clean()
+
 
 class QuestionModelTests(TestCase):
     """
@@ -96,7 +106,7 @@ class ContestantModelTests(TestCase):
         """
         Add a new Contestant with no room.
         """
-        contestant = Contestant(handle='test_room')
+        contestant = Contestant(handle='joe')
         with self.assertRaises(Room.DoesNotExist):
             contestant.full_clean()
 

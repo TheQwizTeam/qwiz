@@ -1,10 +1,10 @@
 """
 Qwiz Models.
 """
-from django.db import models, transaction, IntegrityError
-from django.core.exceptions import ValidationError
 import string
 import random
+from django.db import models, transaction, IntegrityError
+from django.core.exceptions import ValidationError
 
 
 class Tag(models.Model):
@@ -17,6 +17,9 @@ class Tag(models.Model):
     text = models.SlugField(unique=True)
 
     def __str__(self):
+        """
+        Stringify a Tag.
+        """
         return self.text
 
 
@@ -37,6 +40,9 @@ class Question(models.Model):
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
+        """
+        Stringify a Question.
+        """
         return self.question_text
 
 
@@ -53,13 +59,24 @@ class Room(models.Model):
     questions = models.ManyToManyField(Question)
 
     def __str__(self):
+        """
+        Stringify a Room.
+        """
         return self.name
 
     def code_generator(self, size=5):
+        """
+        Generate a random Room code containg 'size' lowercase characters
+        and digits.
+        """
         chars = string.ascii_lowercase + string.digits
         return ''.join(random.choice(chars) for _ in range(size))
 
     def save(self, *args, **kwargs):
+        """
+        Room save method. Override the default method to generate a room code
+        and ensure it's unique.
+        """
         # Generate a unique code for the room
         if not self.code:
             self.code = self.code_generator()
@@ -87,8 +104,14 @@ class Contestant(models.Model):
     complete = models.BooleanField(default=False)
 
     def __str__(self):
+        """
+        Stringify the contestant.
+        """
         return self.handle
 
     def clean(self):
-        if self.room == None:
+        """
+        Model validation.
+        """
+        if self.room is None:
             raise ValidationError(_('Contestant must be in a Room'))
