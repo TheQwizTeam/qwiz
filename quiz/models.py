@@ -22,6 +22,13 @@ class Tag(models.Model):
         """
         return self.text
 
+    def __init__(self, *args, **kwargs):
+        """
+        Override the __init__() method to enforce lowercase text.
+        """
+        super(Tag, self).__init__(*args, **kwargs)
+        self.text = self.text.lower()
+
 
 class Question(models.Model):
     """
