@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: true,
-  quizServiceUrl: "wss://the-qwiz-engine.herokuapp.com/quiz/"
-};
+    production: true,
+    quizServiceUrl: "ws://localhost:5000/quiz/"
+  };
+  
