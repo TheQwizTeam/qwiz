@@ -95,3 +95,5 @@ quiz/static/
 quiz/templates/index\.html
 
 client/yarn\.lock
+
+.heroku/

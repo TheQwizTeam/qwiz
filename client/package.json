@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npm install --prefix './client'",
-    "postinstall": "ng build --output-path=../quiz/static --base-href='/static/' --env=prod && cd ../ && mv quiz/static/index.html quiz/templates"
+    "start": "echo 'Hello'",
+    "postinstall": "ng build --output-path '../quiz/static'"
   },
   "engines": {
     "node": "6.11.1",
-    "npm": "3.10.9"
+    "npm": "5.5.1"
   },
   "private": true,
   "dependencies": {
