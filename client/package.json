@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "echo 'Hello'",
-    "postinstall": "ng build --output-path '../quiz/static'"
+    "postinstall": "ng build --output-path '../quiz/static' && cd  ../quiz/static && mv index.html ../templates"
   },
   "engines": {
     "node": "6.11.1",
