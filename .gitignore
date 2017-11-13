@@ -96,4 +96,6 @@ quiz/templates/index\.html
 
 client/yarn\.lock
 
+.profile.d/
+package-lock.json
 .heroku/
