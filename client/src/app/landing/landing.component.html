@@ -1,0 +1,41 @@
+<div class="background responsive-padding">
+  <div class="container">
+
+    
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile class="title-tile" colspan="4" rowspan="1" (click)="newroom()">
+          <h1 class="title">Qwiz</h1>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="new-room-tile clickable-tile" colspan="2" rowspan="2" (click)="newroom()">
+        <h1 class="title">create room</h1>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="join-room-tile" colspan="2" rowspan="4">
+        <form [formGroup]="roomForm" (ngSubmit)="joinroom(roomForm.value)" class="block-inputs">
+            <h1 class="title">join room</h1> 
+          <div class="example-container">
+            <mat-form-field>
+              <input matInput placeholder="Join Code" formControlName="joinCode">
+            </mat-form-field>
+            <br/>
+            <mat-form-field>
+              <input matInput placeholder="Name" formControlName="handle">
+            </mat-form-field>
+            <br />
+            <button mat-raised-button color="accent">Join</button>
+          </div>
+        </form> 
+      </mat-grid-tile>
+
+      <mat-grid-tile class="login-tile clickable-tile" colspan="2" rowspan="2">
+        <h1 class="title">login</h1>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="about-tile clickable-tile" colspan="4" rowspan="1">
+          <h1 class="title">about</h1>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </div>
+</div>

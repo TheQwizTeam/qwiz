@@ -1,0 +1,23 @@
+.about-tile {
+    background-color: #181918;
+}
+
+.join-room-tile {
+    background-color: #043805;
+}
+
+.login-tile {
+    background-color: #0c590d;
+}
+
+.new-room-tile {
+    background-color: #163d17;
+}
+
+.title-tile {
+    background-color: #181918;
+}
+
+.clickable-tile :hover {
+    cursor: pointer;
+}

@@ -1,0 +1,17 @@
+<div class="background responsive-padding">
+  <div class="container">
+    <md-card>
+      <md-card-title>{{roomName}}</md-card-title>
+      <md-card-content>
+        <!--<div class="user-list">
+          user list
+        </div>-->
+        <div class="right-buttons">
+          <!--<button md-button (click)="sendMessage()">Send test message</button>-->
+          <!--<button md-button (click)="quit()">Quit</button>-->
+          <button *ngIf="canStartGame()" md-button (click)="startGame()">Start Game</button>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
