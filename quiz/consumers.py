@@ -32,7 +32,7 @@ def ws_connect(message):
 
     room, created = Room.objects.get_or_create(name=room_name)
 
-    log.debug('quiz monster connect room_name=%s handle=%s client=%s:%s', 
+    log.debug('qwiz connect room_name=%s handle=%s client=%s:%s', 
         room.name, handle, message['client'][0], message['client'][1])
 
     contestant = room.contestant_set.get_or_create(handle=handle)

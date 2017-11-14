@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class QuizMonsterClientPage {
+export class QwizClientPage {
   navigateTo() {
     return browser.get('/');
   }

@@ -1,10 +1,10 @@
-import { QuizMonsterClientPage } from './app.po';
+import { QwizClientPage } from './app.po';
 
-describe('quiz-monster-client App', () => {
-  let page: QuizMonsterClientPage;
+describe('qwiz-client App', () => {
+  let page: QwizClientPage;
 
   beforeEach(() => {
-    page = new QuizMonsterClientPage();
+    page = new QwizClientPage();
   });
 
   it('should display message saying app works', () => {
