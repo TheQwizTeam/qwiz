@@ -94,6 +94,9 @@ quiz/static/
 
 quiz/templates/index\.html
 
+# Swap files
+*.swp
+
 # Node JS .gitignore
 # compiled output
 client/dist

@@ -1,27 +1,27 @@
 from django.contrib import admin
 
-from .models import Room, Question, Contestant, QuestionVault
+from .models import Room, Question, Contestant, Tag
 
 class ContestantInline(admin.TabularInline):
     model = Contestant
     extra = 1
 
-class QuestionInline(admin.TabularInline):
-    model = Question
-    extra = 1
-
-class QuestionVaultInline(admin.TabularInline):
-    model = QuestionVault
-    extra = 1
-
 class RoomAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None,               {'fields': ['name']}),
+    exclude = ['code']
+    inlines = [
+        ContestantInline,
     ]
-    inlines = [QuestionInline]
-    inlines = [ContestantInline]
+
+class QuestionAdmin(admin.ModelAdmin):
+    pass
+
+class ContestantAdmin(admin.ModelAdmin):
+    pass
+
+class TagAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(Room, RoomAdmin)
-admin.site.register(Question)
-admin.site.register(Contestant)
-admin.site.register(QuestionVault)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Contestant, ContestantAdmin)
+admin.site.register(Tag, TagAdmin)
