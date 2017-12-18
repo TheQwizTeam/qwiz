@@ -21,6 +21,7 @@ from quiz import views
 
 router = routers.DefaultRouter()
 router.register(r'tags', views.TagViewSet)
+router.register(r'room', views.RoomViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
