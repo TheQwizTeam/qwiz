@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'quiz',
     'channels',
     'rest_framework',
+    'rest_framework_swagger',
 )
 
 REST_FRAMEWORK = {
