@@ -21,6 +21,7 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
         Serialize all fields in the Room object
         """
         model = Room
+        read_only_fields = ('code', 'questions')
         fields = '__all__'
 
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
