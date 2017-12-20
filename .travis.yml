@@ -17,3 +17,6 @@ install:
 # command to run tests
 script:
   - python manage.py test
+
+notifications:
+    slack: qwiz-engine:aqfFqzFlMOHT1L9AglxL2pyz
