@@ -1,22 +1,16 @@
-# Specify language and version for runtime
 language: python
 python:
-  - 2.7
-
-# Specify PostgreSQL version
+- 2.7
 addons:
-  postgresql: "9.6"
-
-# Start database service
+  postgresql: '9.6'
 services: postgresql
-
-# command to install dependencies
 install:
-  - pip install -r requirements.txt
-
-# command to run tests
+- pip install -r requirements.txt
 script:
-  - python manage.py test
-
+- python manage.py test
 notifications:
-    slack: qwiz-engine:aqfFqzFlMOHT1L9AglxL2pyz
+  slack: qwiz-engine:aqfFqzFlMOHT1L9AglxL2pyz
+deploy:
+  provider: heroku
+  api_key:
+    secure: g4FmUaXznxg1mh2PxhIDj9uKwtHnohSxGe7ctWgRzdHQrqs6e3OSS8JJVgdTfMYgqXKyBZAsxqHZVIQKNwr9qUo4AfaBrnwhjP4ORlqV0/+B7Yl87PJ1SwKedqFEyrEdzU6QNtDNjs+4HtefjP7aTcNc1+Jv/+Ry4jMFEKv6wWKkVtI6rq2FZU8+MKYOOWLa2yFvsYmAcc4VKrzjJIQNnQrT9isVZ2ZqNUENdGHaaJGkqfdVAPiiJsa+UAOhsdd1IiWPrR3poI/VUUoNUhCwIzTwV727SMJ3TGB6oLBqLp3DLdx3b8v5/ywUK6+xQ9gn+Y9aTFR+eIvFnrHFWkl9IqNMjshjz5vk/xBqICEuvWy/KolAOgdRyp8aTK/CcBRBQChu8UYFbOHkvIIHD7gCV2MNAWrjOLk8k0wG5mpd62W6cBwwBIFcDzatPfhLuncVbTYiP2240GcUwkPCwHg7XlrlULaX/eMsS99qNf7977n0fD5gIHVMq46hW7yqvmu12wLegZJk+mu/swnEmIKBnszsBtBTO6YcSFJ8N54zI5S3dKQ6lJjYh8ks+6pihJFOA+UEX3fO2m2iVxEc6XkmpfgvAr5C29JVYri6mMeHMbqUqYG5D8fSwAsM215UK2CZGSCZDbWZv1+k1vqxHK68OCpJlYl1AEIhyPcR14p31Dc=
