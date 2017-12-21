@@ -19,6 +19,7 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
     """
     tags = serializers.ListField(
         write_only=True,
+        allow_empty=False,
         child=serializers.CharField(write_only=True),
     )
     num_questions = serializers.IntegerField(max_value=10, min_value=1, write_only=True)
@@ -29,7 +30,14 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
         tags = validated_data.pop('tags')
         num_questions = validated_data.pop('num_questions')
 
-        return super(RoomSerializer, self).create(validated_data)
+        # Create the room with the reduced, validated data
+        room = super(RoomSerializer, self).create(validated_data)
+
+        # Populate the room with questions based on the tags, and number of
+        # questions, supplied
+        room.populate(tags, num_questions)
+
+        return room
 
     class Meta:
         """
