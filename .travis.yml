@@ -10,6 +10,8 @@ script:
 - python manage.py test
 notifications:
   slack: qwiz-engine:aqfFqzFlMOHT1L9AglxL2pyz
+  on_success: change
+  on_failure: always
 deploy:
   provider: heroku
   app: the-qwiz-engine
