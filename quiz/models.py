@@ -5,6 +5,7 @@ import string
 import random
 from django.db import models, transaction, IntegrityError
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 
 class Tag(models.Model):
@@ -78,6 +79,31 @@ class Room(models.Model):
         """
         chars = string.ascii_lowercase + string.digits
         return ''.join(random.choice(chars) for _ in range(size))
+
+    def populate(self, tags, num_questions):
+        """
+        Populates this room with a set of questions tagged with any of the passed
+        in tags, up to the number of questions requested.
+        """
+        # A dummy query object (always evaluates to false) that is used as a
+        # placeholder for query object bitwise product
+        q = Q(pk=None)
+
+        # Bitwise concatenation of tag query objects, filtering questions
+        # based on the passed in tags
+        for tag in tags:
+            q = q | Q(tags__text__exact=tag)
+
+        # Populate room with a random set of questions matching the
+        # supplied query, up to the number of questions requested
+        questions = list(Question.objects.filter(q).distinct('pk'))
+        random.shuffle(questions)
+        self.questions = questions[:num_questions]
+
+        # Commit questions to the room
+        self.save()
+
+        return self
 
     def save(self, *args, **kwargs):
         """
