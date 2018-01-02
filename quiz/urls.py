@@ -29,9 +29,9 @@ router.register(r'room', views.RoomViewSet)
 router.register(r'question', views.QuestionViewSet)
 
 urlpatterns = [
-    url(r'^$', views.index),
-    url(r'^swagger/', schema_view),
-    url(r'^api/', include(router.urls)),
-    url(r'^api-auth', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^admin/', admin.site.urls),
+    url('', views.index),
+    url('swagger/', schema_view),
+    url('api/', include(router.urls)),
+    url('api-auth', include('rest_framework.urls', namespace='rest_framework')),
+    url('admin/', admin.site.urls),
 ]
