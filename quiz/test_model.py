@@ -12,6 +12,10 @@ class TagModelTests(TestCase):
     """
     Tag Model test cases.
     """
+
+    def tearDown(self):
+        Tag.objects.all().delete()
+
     def test_tag(self):
         """
         Add a tag.
