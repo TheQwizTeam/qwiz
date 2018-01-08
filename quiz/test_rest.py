@@ -10,29 +10,30 @@ class RestTagTests(APITestCase):
     """
     def setUp(self):
         """
-        Set up Tag tests
+        Tag test setup, creating a single tag.
         """
         tag = Tag(text='test_tag')
         tag.save()
 
     def tearDown(self):
         """
-        Tear down Tag test
+        Tag test teardown, removing all created Tags
         """
-        Tag.objects.get(text='test_tag').delete()
+        Tag.objects.all().delete()
 
-    def testGetTag(self):
+    def test_get_tag(self):
         """
         Get a single tag
         """
-        response = self.client.get('/api/tags/1/')
+        last_pk = Tag.objects.last().pk
+        response = self.client.get('/api/tags/{}/'.format(last_pk))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {'text':'test_tag', 'url':'http://testserver/api/tags/1/'})
+        self.assertEqual(response.data, {'text':'test_tag', 'url':'http://testserver/api/tags/{}/'.format(last_pk)})
 
     def test_get_tag_no_tag(self):
         """
         Get a single tag that doesn't exist
         """
-        response = self.client.get('/api/tags/10/')
+        response = self.client.get('/api/tags/{}/'.format(Tag.objects.last().pk + 1))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data, {'detail':'Not found.'})

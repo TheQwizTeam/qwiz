@@ -14,6 +14,9 @@ class TagModelTests(TestCase):
     """
 
     def tearDown(self):
+        """
+        Tag test teardown, removing all created Tags
+        """
         Tag.objects.all().delete()
 
     def test_tag(self):
