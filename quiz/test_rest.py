@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import Tag, Question, Room, Contestant
+from .models import Tag, Question, Room
 
 
 class RestTagTests(APITestCase):
@@ -28,11 +28,12 @@ class RestTagTests(APITestCase):
         last_pk = Tag.objects.last().pk
         response = self.client.get('/api/tags/{}/'.format(last_pk))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {'text':'test_tag', 'url':'http://testserver/api/tags/{}/'.format(last_pk)})
+        self.assertEqual(response.data, {'text':'test_tag', \
+                'url':'http://testserver/api/tags/{}/'.format(last_pk)})
 
     def test_get_all_tags(self):
         """
-        Get a all tags
+        Get all tags
         """
         response = self.client.get('/api/tags/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -77,7 +78,7 @@ class RestQuestionTests(APITestCase):
 
     def test_get_all_questions(self):
         """
-        Get a all questions
+        Get all questions
         """
         response = self.client.get('/api/question/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -111,7 +112,7 @@ class RestRoomTests(APITestCase):
 
     def test_get_all_rooms(self):
         """
-        Get a all rooms
+        Get all rooms
         """
         response = self.client.get('/api/room/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
