@@ -84,6 +84,14 @@ class RestQuestionTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
 
+    def test_get_question_no_question(self):
+        """
+        Get a single question that doesn't exist
+        """
+        response = self.client.get('/api/question/{}/'.format(Question.objects.last().pk + 1))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data, {'detail': 'Not found.'})
+
 class RestRoomTests(APITestCase):
     """
     REST API Room test cases.
@@ -117,3 +125,11 @@ class RestRoomTests(APITestCase):
         response = self.client.get('/api/room/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
+
+    def test_get_room_no_room(self):
+        """
+        Get a single room that doesn't exist
+        """
+        response = self.client.get('/api/room/{}/'.format(Room.objects.last().pk + 1))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data, {'detail': 'Not found.'})
