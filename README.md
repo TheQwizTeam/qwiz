@@ -1,6 +1,10 @@
 # Qwiz
 
-An open source quiz engine.
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/TheQwizTeam/qwiz/blob/master/LICENSE)
+[![built with Python3](https://img.shields.io/badge/built%20with-Python3-red.svg)](https://www.python.org/)
+[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/TheQwizTeam/qwiz/)
+
+An open source SaaS quiz engine.
 
 ## Getting Started
 
