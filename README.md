@@ -1,10 +1,8 @@
 # Qwiz
 
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/TheQwizTeam/qwiz/blob/master/LICENSE)
-[![built with Python3](https://img.shields.io/badge/built%20with-Python3-red.svg)](https://www.python.org/)
+[![built with Python3](https://img.shields.io/badge/built%20with-Python3%20%7C%20Angular-red.svg)](https://www.python.org/)
 [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/TheQwizTeam/qwiz/)
-
-An open source SaaS quiz engine.
 
 ## Getting Started
 
@@ -225,10 +223,6 @@ Destroying test database for alias 'default'...
 Any failures will be listed with a backtrace.
 
 
-## Built With
- - [Django](https://www.djangoproject.com/) - Python web framework.
- - [Angular](https://angular.io/) - Front-end web application platform.
-
 ## Contributing
 
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
@@ -238,10 +232,8 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 [SemVer](http://semver.org/) is used for versioning. For the versions available, see the tags on this repository.
 
 ### Authors
-[Christopher Kane](https://github.com/christopherkane)
-[Michael Purdy](https://github.com/0mpurdy),
-[Paul Crooks](https://github.com/pgcrooks)
-[Scott Hulme](https://github.com/zeroish),
+[Christopher Kane](https://github.com/christopherkane), [Michael Purdy](https://github.com/0mpurdy), 
+[Paul Crooks](https://github.com/pgcrooks) and [Scott Hulme](https://github.com/zeroish)
 
 ### License
 
