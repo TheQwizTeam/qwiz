@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule, MatInputModule, MatButtonModule, MatIconModule, MatListModule } from '@angular/material';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -15,6 +17,7 @@ import { QuestionComponent } from './question/question.component';
 import { OutcomePageComponent } from './outcome-page/outcome-page.component';
 import { SummaryPageComponent } from './summary-page/summary-page.component';
 import { QuizService } from './quiz-service/quiz.service';
+import { QwizService } from './qwiz-service/qwiz-service';
 import { CompleteComponent } from './complete/complete.component';
 
 import { LoggedInGuard } from './logged-in/logged-in.guard';
@@ -23,7 +26,7 @@ import { NewRoomComponent } from './new-room/new-room.component';
 export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'newroom', component: NewRoomComponent },
-  { path: 'waiting/:room/:handle', component: WaitingComponent, canActivate: [LoggedInGuard] },
+  { path: 'waiting/:room/:handle', component: WaitingComponent },
   { path: 'start', component: StartGameComponent, canActivate: [LoggedInGuard] },
   { path: 'question', component: QuestionComponent, canActivate: [LoggedInGuard] },
   { path: 'outcome', component: OutcomePageComponent, canActivate: [LoggedInGuard] },
@@ -49,6 +52,7 @@ export const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     MatCardModule,
@@ -60,7 +64,7 @@ export const appRoutes: Routes = [
   ],
   providers: [
     QuizService,
-
+    QwizService,
     LoggedInGuard
   ],
   bootstrap: [AppComponent]

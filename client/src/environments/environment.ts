@@ -5,5 +5,6 @@
 
 export const environment = {
   production: true,
-  quizServiceUrl: "wss://the-qwiz-engine.herokuapp.com/quiz/"
+  quizServiceUrl: "wss://the-qwiz-engine.herokuapp.com/quiz/",
+  qwizServiceUrl: "http://localhost:8000/"
 };

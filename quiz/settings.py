@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'quiz',
     'channels',
+    'corsheaders',
     'rest_framework',
     'rest_framework_swagger',
 )
@@ -60,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'quiz.urls'
@@ -154,4 +157,13 @@ STATICFILES_DIRS = (
 
 FIXTURE_DIRS = (
     '/fixtures/',
+)
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200'
+)
+CORS_ORIGIN_REGEX_WHITELIST = (
+    'localhost:4200'
 )

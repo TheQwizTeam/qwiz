@@ -1,17 +1,24 @@
 <div class="background responsive-padding">
   <div class="container">
-    <md-card>
-      <md-card-title>{{roomName}}</md-card-title>
-      <md-card-content>
-        <!--<div class="user-list">
-          user list
-        </div>-->
+
+    
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile class="title-tile" colspan="4" rowspan="1">
+          <h1 class="title">Qwiz</h1>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="new-room-tile clickable-tile" colspan="2" rowspan="2">
+        <h1 class="title">{{roomName}}</h1>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="new-room-tile clickable-tile" colspan="2" rowspan="2">
+        
         <div class="right-buttons">
-          <!--<button md-button (click)="sendMessage()">Send test message</button>-->
-          <!--<button md-button (click)="quit()">Quit</button>-->
-          <button *ngIf="canStartGame()" md-button (click)="startGame()">Start Game</button>
+          <!--button *ngIf="canStartGame()" md-button (click)="startGame()">Start Game</button-->
+          <button md-button (click)="startGame()">Start Game</button>
         </div>
-      </md-card-content>
-    </md-card>
+      </mat-grid-tile>
+
+    </mat-grid-list>
   </div>
 </div>
