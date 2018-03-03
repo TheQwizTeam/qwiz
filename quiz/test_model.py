@@ -12,6 +12,12 @@ class TagModelTests(TestCase):
     """
     Tag Model test cases.
     """
+    def tearDown(self):
+        """
+        Tag test teardown, removing all created Tags
+        """
+        Tag.objects.all().delete()
+
     def test_tag(self):
         """
         Add a tag.
@@ -53,6 +59,12 @@ class QuestionModelTests(TestCase):
     """
     Question Model test cases.
     """
+    def tearDown(self):
+        """
+        Question test teardown, removing all created questions
+        """
+        Question.objects.all().delete()
+
     def test_new_question_no_text(self):
         """
         Add a new question with no text.

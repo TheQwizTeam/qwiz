@@ -1,14 +1,31 @@
 from channels.staticfiles import StaticFilesConsumer
-from . import consumers
+from .consumers import ws_connect, ws_receive, ws_disconnect, new_contestant, start_quiz, submit_answer
+from channels import include, route
 
-channel_routing = {
+# Although we could, there is no path matching on these routes; instead we rely
+# on the matching from the top-level routing.
+websocket_routing = [
     # This makes Django serve static files from settings.STATIC_URL, similar
     # to django.views.static.serve. This isn't ideal (not exactly production
     # quality) but it works for a minimal example.
-    'http.request': StaticFilesConsumer(),
+    route('http.request', StaticFilesConsumer()),
 
-    # Wire up websocket channels to our consumers:
-    'websocket.connect': consumers.ws_connect,
-    'websocket.receive': consumers.ws_receive,
-    # 'websocket.disconnect': consumers.ws_disconnect,
-}
+    # Called when WebSockets connect
+    route("websocket.connect", ws_connect),
+
+    # Called when WebSockets get sent a data frame
+    route("websocket.receive", ws_receive),
+
+    # Called when WebSockets disconnect
+    route("websocket.disconnect", ws_disconnect),
+]
+
+channel_routing = [
+    # Handling different quiz commands (websocket.receive is decoded and put
+    # onto this channel) - routed on the "command" attribute of the decoded
+    # message.
+    route("quiz.receive", new_contestant, command="^new_contestant$"),
+    route("quiz.receive", start_quiz, command="^start_quiz$"),
+    route("quiz.receive", submit_answer, command="^submit_answer$"),
+    include("quiz.routing.websocket_routing"),
+]
