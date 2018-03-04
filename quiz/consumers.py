@@ -3,6 +3,9 @@ import json
 import logging
 from channels import Group, Channel
 from channels.sessions import channel_session
+from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
+
 from .models import Room, Question, Contestant
 
 log = logging.getLogger(__name__)
@@ -32,6 +35,21 @@ def ws_disconnect(message):
 def new_contestant(message):
     # Log endpoint receipt of WebSocket message
     log.debug("WebSocket message received: new_contestant")
+
+    # Attempt to find the room, and create a contestant within this room
+    try:
+        room = Room.objects.get(code=message.get('room_code'))
+        contestant = Contestant(handle=message.get('contestant_name'), room=room)
+        contestant.save()
+    except ObjectDoesNotExist:
+        log.error("The room doesn't exist.")
+        return HttpResponse(status=400)
+
+    # Save the room code withing the client's session for convenient future access
+    message.channel_session['room_code'] = message.get('room_code')
+
+    # Add the connection's reply channel to the room's connection group
+    Group('quiz-' + room.code).add(message.get('reply_channel'))
 
 @channel_session
 def start_quiz(message):
