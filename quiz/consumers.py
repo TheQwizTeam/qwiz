@@ -51,6 +51,9 @@ def new_contestant(message):
     # Add the connection's reply channel to the room's connection group
     Group('quiz-' + room.code).add(message.get('reply_channel'))
 
+    # Published updated contestant list to all contestants
+    room.publish_contestant_list()
+
 @channel_session
 def start_quiz(message):
     # Log endpoint receipt of WebSocket message
