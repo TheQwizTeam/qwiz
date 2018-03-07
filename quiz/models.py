@@ -3,6 +3,9 @@ Qwiz Models.
 """
 import string
 import random
+import json
+
+from channels import Group
 from django.db import models, transaction, IntegrityError
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -120,6 +123,13 @@ class Room(models.Model):
                     return super(Room, self).save(*args, **kwargs)
             except IntegrityError:
                 self.code = self.code_generator()
+
+    def publish_contestant_list(self):
+        message = {
+            "command": "contestant_list",
+            "contestants":  [contestant.handle for contestant in self.contestant_set.all()]
+        }
+        Group('quiz-' + self.code).send({'text': json.dumps(message)})
 
 
 class Contestant(models.Model):
