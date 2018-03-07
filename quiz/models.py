@@ -4,7 +4,6 @@ Qwiz Models.
 import string
 import random
 import json
-import logging
 
 from channels import Group
 from django.db import models, transaction, IntegrityError
