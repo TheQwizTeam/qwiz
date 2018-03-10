@@ -125,9 +125,21 @@ class Room(models.Model):
                 self.code = self.code_generator()
 
     def publish_contestant_list(self):
+        """
+        Send a 'contestant_list' message from server to client.
+        """
         message = {
             "command": "contestant_list",
             "contestants":  [contestant.handle for contestant in self.contestant_set.all()]
+        }
+        Group('quiz-' + self.code).send({'text': json.dumps(message)})
+
+    def publish_quiz_start(self):
+        """
+        Send a 'quiz_starting' message from server to client.
+        """
+        message = {
+            "command": "quiz_starting"
         }
         Group('quiz-' + self.code).send({'text': json.dumps(message)})
 

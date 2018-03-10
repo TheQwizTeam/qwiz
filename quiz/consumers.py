@@ -70,6 +70,22 @@ def start_quiz(message):
     # Log endpoint receipt of WebSocket message
     log.debug("WebSocket message received: start_quiz")
 
+    reply_channel = message.get('reply_channel')
+
+    # Attempt to find the room from the session
+    try:
+        room = Room.objects.get(code=message.channel_session['room_code'])
+    except ObjectDoesNotExist:
+        send_response(reply_channel, StatusCode.ILLEGAL_ARGUMENT, 'The specified room does not exist')
+        return
+
+    # Notify client that request was successfully carried out
+    send_response(reply_channel)
+
+    # Send a broadcast message to all contestants to say that the quiz is starting
+    room.publish_quiz_start()
+
+
 @channel_session
 def submit_answer(message):
     # Log endpoint receipt of WebSocket message
