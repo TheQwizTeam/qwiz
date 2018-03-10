@@ -50,8 +50,7 @@ def new_contestant(message):
         contestant = Contestant(handle=message.get('contestant_name'), room=room)
         contestant.save()
     except ObjectDoesNotExist:
-        log.error("The room doesn't exist.")
-        send_response(reply_channel, StatusCode.ILLEGAL_ARGUMENT, 'The specified does not exist')
+        send_response(reply_channel, StatusCode.ILLEGAL_ARGUMENT, 'The specified room does not exist')
         return
 
     # Save the room code withing the client's session for convenient future access
