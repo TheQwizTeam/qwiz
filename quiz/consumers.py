@@ -5,6 +5,7 @@ from channels import Group, Channel
 from channels.sessions import channel_session
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
+from json.decoder import JSONDecodeError
 
 from quiz.producers import send_response, StatusCode
 from .models import Room, Question, Contestant
@@ -23,7 +24,11 @@ def ws_receive(message):
     # Log endpoint receipt of WebSocket message
     log.debug("WebSocket message received: receive")
     # Route message to "quiz.receive" channel
-    payload = json.loads(message['text'])
+    try:
+        payload = json.loads(message['text'])
+    except JSONDecodeError:
+        log.error("WS Receive: no data.")
+        return HttpResponse(status=400)
     payload['reply_channel'] = message.content['reply_channel']
     Channel("quiz.receive").send(payload)
 
