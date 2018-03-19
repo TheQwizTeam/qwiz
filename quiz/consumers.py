@@ -5,6 +5,7 @@ from channels import Group, Channel
 from channels.sessions import channel_session
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
+from json.decoder import JSONDecodeError
 
 from quiz.producers import send_response, StatusCode
 from .models import Room, Question, Contestant
@@ -23,7 +24,11 @@ def ws_receive(message):
     # Log endpoint receipt of WebSocket message
     log.debug("WebSocket message received: receive")
     # Route message to "quiz.receive" channel
-    payload = json.loads(message['text'])
+    try:
+        payload = json.loads(message['text'])
+    except JSONDecodeError:
+        log.error("WS Receive: no data.")
+        return HttpResponse(status=400)
     payload['reply_channel'] = message.content['reply_channel']
     Channel("quiz.receive").send(payload)
 
@@ -45,8 +50,7 @@ def new_contestant(message):
         contestant = Contestant(handle=message.get('contestant_name'), room=room)
         contestant.save()
     except ObjectDoesNotExist:
-        log.error("The room doesn't exist.")
-        send_response(reply_channel, StatusCode.ILLEGAL_ARGUMENT, 'The specified does not exist')
+        send_response(reply_channel, StatusCode.ILLEGAL_ARGUMENT, 'The specified room does not exist')
         return
 
     # Save the room code withing the client's session for convenient future access
@@ -65,6 +69,22 @@ def new_contestant(message):
 def start_quiz(message):
     # Log endpoint receipt of WebSocket message
     log.debug("WebSocket message received: start_quiz")
+
+    reply_channel = message.get('reply_channel')
+
+    # Attempt to find the room from the session
+    try:
+        room = Room.objects.get(code=message.channel_session['room_code'])
+    except ObjectDoesNotExist:
+        send_response(reply_channel, StatusCode.ILLEGAL_ARGUMENT, 'The specified room does not exist')
+        return
+
+    # Notify client that request was successfully carried out
+    send_response(reply_channel)
+
+    # Send a broadcast message to all contestants to say that the quiz is starting
+    room.publish_quiz_start()
+
 
 @channel_session
 def submit_answer(message):

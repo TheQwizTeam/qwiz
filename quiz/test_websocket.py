@@ -42,7 +42,7 @@ class WebSocketCreateContestantTests(ChannelTestCase):
 
         client.send_and_consume('websocket.disconnect')
 
-    def test_create_contestant_ialid_room(self):
+    def test_create_contestant_valid_room(self):
         """
         Attempt to create a contestant in a valid room
         """
@@ -145,3 +145,53 @@ class WebSocketContestantListTests(ChannelTestCase):
 
         jane_client.send_and_consume('websocket.disconnect')
         john_client.send_and_consume('websocket.disconnect')
+
+
+class WebSocketStartQuizTests(ChannelTestCase):
+    """
+    WebSocket start quiz through WebSocket API tests
+    """
+    def setUp(self):
+        """
+        Room test setup, creating a single room
+        """
+        room = Room(name='TestRoom')
+        room.save()
+
+        # Create a contestant
+        self.client = WSClient()
+        self.client.send_and_consume('websocket.connect')
+        self.client.send_and_consume('quiz.receive',{
+            'command': 'new_contestant',
+            'room_code': room.code,
+            'contestant_name': 'Joe Bloggs'
+        })
+        # Receive the status code and contestant_list messages
+        response = self.client.receive()
+        response = self.client.receive()
+
+    def tearDown(self):
+        """
+        Room test teardown, removing all created rooms
+        """
+        self.client.send_and_consume('websocket.disconnect')
+        Contestant.objects.all().delete()
+        Room.objects.all().delete()
+
+    def test_start_quiz(self):
+        """
+        Attempt to start a quiz
+        """
+        self.client.send_and_consume('quiz.receive',{
+            'command': 'start_quiz'
+        })
+
+        # Receive the status reply message
+        response = self.client.receive()
+        self.assertEqual(response['status_code'], StatusCode.OK)
+
+        # Receive the group broadcast
+        response = self.client.receive()
+        self.assertDictEqual(response, {
+            'command': 'quiz_starting'
+        })
