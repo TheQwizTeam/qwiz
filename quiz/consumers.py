@@ -57,7 +57,7 @@ def new_contestant(message):
     message.channel_session['room_code'] = message.get('room_code')
 
     # Add the connection's reply channel to the room's connection group
-    Group('quiz-' + room.code).add(reply_channel)
+    Group(room.group_name()).add(reply_channel)
 
     # Notify client that request was successfully carried out
     send_response(reply_channel)

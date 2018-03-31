@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
+
 from celery import task
 import json
 from enum import IntEnum, unique
-from channels import Channel
-
+from channels import Channel, Group
 
 @unique
 class StatusCode(IntEnum):
@@ -23,12 +23,27 @@ def send_response(channel, status_code=StatusCode.OK, message=None, delay=None):
     if message:
         response['message'] = message
 
-    if delay:
-        channel_send.apply_async(args=(channel, response), countdown=delay)
+    send_message(channel, response, delay)
+
+
+def send_message(target, message, delay=None):
+    if target.startswith("quiz-"):
+        if delay:
+            group_send.apply_async(args=(target, message), countdown=delay)
+        else:
+            group_send(target, message)
     else:
-        channel_send(channel, response)
+        if delay:
+            channel_send.apply_async(args=(target, message), countdown=delay)
+        else:
+            channel_send(target, message)
 
 
 @task
-def channel_send(channel, response):
-    Channel(channel).send({'text': json.dumps(response)})
+def channel_send(channel, message):
+    Channel(channel).send({'text': json.dumps(message)})
+
+
+@task
+def group_send(group, message):
+    Group(group).send({'text': json.dumps(message)})

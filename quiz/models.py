@@ -3,12 +3,12 @@ Qwiz Models.
 """
 import string
 import random
-import json
 
-from channels import Group
 from django.db import models, transaction, IntegrityError
 from django.core.exceptions import ValidationError
 from django.db.models import Q
+
+from quiz.producers import send_message
 
 
 class Tag(models.Model):
@@ -124,6 +124,12 @@ class Room(models.Model):
             except IntegrityError:
                 self.code = self.code_generator()
 
+    def group_name(self):
+        """
+        Convenience method for generate Room's group name.
+        """
+        return 'quiz-' + self.code + "-contestant-group"
+
     def publish_contestant_list(self):
         """
         Send a 'contestant_list' message from server to client.
@@ -132,7 +138,7 @@ class Room(models.Model):
             "command": "contestant_list",
             "contestants":  [contestant.handle for contestant in self.contestant_set.all()]
         }
-        Group('quiz-' + self.code).send({'text': json.dumps(message)})
+        send_message(self.group_name(), message)
 
     def publish_quiz_start(self):
         """
@@ -141,7 +147,7 @@ class Room(models.Model):
         message = {
             "command": "quiz_starting"
         }
-        Group('quiz-' + self.code).send({'text': json.dumps(message)})
+        send_message(self.group_name(), message)
 
 
 class Contestant(models.Model):
