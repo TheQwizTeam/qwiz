@@ -1,0 +1,241 @@
+[
+  {
+    "model": "quiz.tag",
+    "pk": 1,
+    "fields": {
+      "text": "christmas"
+    }
+  },
+  {
+    "model": "quiz.tag",
+    "pk": 2,
+    "fields": {
+      "text": "halloween"
+    }
+  },
+  {
+    "model": "quiz.tag",
+    "pk": 3,
+    "fields": {
+      "text": "war"
+    }
+  },
+  {
+    "model": "quiz.tag",
+    "pk": 4,
+    "fields": {
+      "text": "movies"
+    }
+  },
+  {
+    "model": "quiz.tag",
+    "pk": 5,
+    "fields": {
+      "text": "cartoons"
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 1,
+    "fields": {
+      "question_text": "In which month is christmas?",
+      "correct_answer": "December",
+      "incorrect_answer_1": "March",
+      "incorrect_answer_2": "April",
+      "incorrect_answer_3": "November",
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 2,
+    "fields": {
+      "question_text": "What is the name of the van in which Scooby Doo and the gang travel?",
+      "correct_answer": "The Mystery Machine",
+      "incorrect_answer_1": "The Scooby Snack",
+      "incorrect_answer_2": "The Scrappy Doo",
+      "incorrect_answer_3": "The Creepy Coupe",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 3,
+    "fields": {
+      "question_text": "What breed of dog is Scooby Doo?",
+      "correct_answer": "Great Dane",
+      "incorrect_answer_1": "German Shepherd",
+      "incorrect_answer_2": "Doberman",
+      "incorrect_answer_3": "Alaskan Malamute",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 4,
+    "fields": {
+      "question_text": "In the Wacky Races, in what car did the Ant Hill Mob race?",
+      "correct_answer": "The Bulletproof Bomb",
+      "incorrect_answer_1": "The Tommy Gun",
+      "incorrect_answer_2": "Buzzwagon",
+      "incorrect_answer_3": "The Mob Mobile",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 5,
+    "fields": {
+      "question_text": "Which cartoon character is famous for saying 'I have the power!'",
+      "correct_answer": "He-Man",
+      "incorrect_answer_1": "Conan the Barbarian",
+      "incorrect_answer_2": "The Hulk",
+      "incorrect_answer_3": "Captain Planet",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 6,
+    "fields": {
+      "question_text": "Who is the Lord of the Thundercats?",
+      "correct_answer": "Lion-O",
+      "incorrect_answer_1": "Tygra",
+      "incorrect_answer_2": "Panthro",
+      "incorrect_answer_3": "Cheetara",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 7,
+    "fields": {
+      "question_text": "What is first name of Doctor Zoidberg from Futurama?",
+      "correct_answer": "John",
+      "incorrect_answer_1": "Billy",
+      "incorrect_answer_2": "Steven",
+      "incorrect_answer_3": "Simon",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 8,
+    "fields": {
+      "question_text": "In the Simpons, who is Jeff Albertson better known as?",
+      "correct_answer": "Comic Book Guy",
+      "incorrect_answer_1": "Bubblebee Man",
+      "incorrect_answer_2": "The Capital City Goofball",
+      "incorrect_answer_3": "Duffman",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 9,
+    "fields": {
+      "question_text": "What amusement park ride transported a group of friends into the realm of Dungeons and Dragons?",
+      "correct_answer": "Roller Coaster",
+      "incorrect_answer_1": "Ghost Train",
+      "incorrect_answer_2": "Drop Tower",
+      "incorrect_answer_3": "Pendulum Ride",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 10,
+    "fields": {
+      "question_text": "In Adventure Time, what is the name of Finn the Human's dog?",
+      "correct_answer": "Jake",
+      "incorrect_answer_1": "Bubblegum",
+      "incorrect_answer_2": "Beemo",
+      "incorrect_answer_3": "Pendleton",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 11,
+    "fields": {
+      "question_text": "In the Regular Show, Mordecai is an anthropomorphised representation of which animal?",
+      "correct_answer": "Blue Jay",
+      "incorrect_answer_1": "Racoon",
+      "incorrect_answer_2": "Ape",
+      "incorrect_answer_3": "Dwarf Rabbit",
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "quiz.room",
+    "pk": 1,
+    "fields": {
+      "name": "Cartoon Qwiz",
+      "code": "abc12",
+      "questions": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  },
+  {
+    "model": "quiz.contestant",
+    "pk": 1,
+    "fields": {
+      "room": 1,
+      "handle": "Chris",
+      "score": 0,
+      "complete": false
+    }
+  },
+  {
+    "model": "quiz.contestant",
+    "pk": 2,
+    "fields": {
+      "room": 1,
+      "handle": "Paul",
+      "score": 0,
+      "complete": false
+    }
+  },
+  {
+    "model": "quiz.contestant",
+    "pk": 3,
+    "fields": {
+      "room": 1,
+      "handle": "Scott",
+      "score": 0,
+      "complete": false
+    }
+  }
+]
