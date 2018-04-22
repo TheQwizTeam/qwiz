@@ -5,7 +5,7 @@
 
 export const environment = {
     production: true,
-    quizServiceUrl: "ws://localhost:5000/quiz/",
+    quizServiceUrl: "ws://127.0.0.1:8000/quiz",
     qwizServiceUrl: "http://localhost:8000/"
   };
   
