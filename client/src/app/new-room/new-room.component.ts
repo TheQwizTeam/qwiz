@@ -50,7 +50,7 @@ export class NewRoomComponent implements OnInit {
     let message = new CreateRoomRequest();
     message.name = formValue.roomName;
     message.tags[0] = formValue.topic;
-    message.num_questions = 2;
+    message.num_questions = formValue.numberOfQuestions;
 
     this.qwizService.createRoom(message).subscribe(response => 
       {
