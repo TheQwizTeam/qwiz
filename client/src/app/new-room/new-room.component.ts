@@ -8,6 +8,8 @@ import { NewRoomMessage } from './new-room-message';
 import { QwizService } from '../qwiz-service/qwiz-service';
 import { CreateRoomRequest } from 'app/models/create-room-request';
 import { CreateRoomResponse } from 'app/models/create-room-response';
+import { QuizService } from '../quiz-service/quiz.service';
+import { WsMessage } from '../models/ws-message';
 
 @Component({
   selector: 'app-new-room',
@@ -23,7 +25,8 @@ export class NewRoomComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private qwizService: QwizService
+    private qwizService: QwizService,
+    private quizService: QuizService
   ) {
     this.createRoomForm = this.fb.group({
       roomName: this.fb.control(''),
@@ -55,8 +58,8 @@ export class NewRoomComponent implements OnInit {
       });
   }
 
-  joinroom(something) {
-    
+  joinroom(message: WsMessage) {
+    this.quizService.registerWithRoom(message);
   }
 
   home() {

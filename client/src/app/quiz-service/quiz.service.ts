@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from "../../environments/environment";
+import { WsMessage } from '../models/ws-message';
 
 declare var ReconnectingWebSocket;
 
@@ -30,8 +31,7 @@ export class QuizService {
   }
 
   open(roomDetails) {
-    this.currentHandle = roomDetails.handle;
-    const url = this.apiUrl + roomDetails.roomName + '/' + roomDetails.handle + '/';
+    const url = this.apiUrl + '/' + roomDetails.roomName + '/' + roomDetails.username;
     console.log(url);
     this.websocket = new ReconnectingWebSocket(url);
     this.websocket.onopen = () => {
@@ -45,7 +45,7 @@ export class QuizService {
     setTimeout(() => {
       const connection = {
         type: QuizMessageType.NewRoom,
-        handle: roomDetails.handle,
+        handle: roomDetails.username,
         message: roomDetails.roomName
       } as QuizMessage;
       this.websocket.send(JSON.stringify(connection));
@@ -67,45 +67,45 @@ export class QuizService {
   handleIncomingMessage() {
     return (message) => {
       // console.log(message);
-      const messageData: QuizMessage = JSON.parse(message.data);
-      console.log('Got new message', messageData);
+      const response: WsMessage = JSON.parse(message.data);
+      console.log('Got new message', response);
 
-      switch (messageData.type) {
-        case 0:
-          console.log('New Room');
+      switch (response.command) {
+        case "contestant_list":
+          console.log('Contestant_List');
           break;
-        case 1:
-          console.log('Questions');
-          this.questionNumber += 1;
-          this.currentQuestion = messageData.question_text;
-          this.currentAnswers = [
-            messageData.correct_answer,
-            messageData.incorrect_answer_1,
-            messageData.incorrect_answer_2,
-            messageData.incorrect_answer_3
-          ];
-          this.correctAnswer = messageData.correct_answer;
-          this.router.navigate(['question']);
-          break;
-        case 2:
-          console.log('Result');
-          break;
-        case 3:
-          console.log('Summary');
-          this.scores = messageData.scores.sort((a, b) => {
-            // a comes after b
-            if (a[1] < b[1]) {
-              return 1;
-            }
-            // a comes before b
-            if (a[1] > b[1]) {
-              return -1;
-            }
-            // a and b are equal
-            return 0;
-          });
-          this.router.navigate(['summary']);
-          break;
+        // case 1:
+        //   console.log('Questions');
+        //   this.questionNumber += 1;
+        // this.currentQuestion = messageData.question_text;
+        // this.currentAnswers = [
+        //   messageData.correct_answer,
+        //   messageData.incorrect_answer_1,
+        //   messageData.incorrect_answer_2,
+        //   messageData.incorrect_answer_3
+        //   ];
+        //   this.correctAnswer = messageData.correct_answer;
+        //   this.router.navigate(['question']);
+        //   break;
+        // case 2:
+        //   console.log('Result');
+        //   break;
+        // case 3:
+        //   console.log('Summary');
+        //   this.scores = messageData.scores.sort((a, b) => {
+        //     // a comes after b
+        //     if (a[1] < b[1]) {
+        //       return 1;
+        //     }
+        //     // a comes before b
+        //     if (a[1] > b[1]) {
+        //       return -1;
+        //     }
+        //     // a and b are equal
+        //     return 0;
+        //   });
+        //   this.router.navigate(['summary']);
+        //   break;
         default:
           console.log('Unknown message type');
       }
@@ -116,24 +116,43 @@ export class QuizService {
 
   }
 
-  sendMessage(message) {
+  sendMessage(message: WsMessage) {
     const websocketMessage = {
-      type: QuizMessageType.Message,
-      handle: this.currentHandle,
-      message: message
+      command: message.command,
+      contestant_name: message.contestant_name,
+      room_code: message.room_code
     };
     console.log('Sending websocket message ', websocketMessage);
     this.websocket.send(JSON.stringify(websocketMessage));
   }
 
-  getNextQuestion() {
+  registerWithRoom(message: WsMessage)
+  {
+    const url = this.apiUrl + '/' + message.room_code;
+    console.log(url);
+
+    this.websocket = new ReconnectingWebSocket(url);
+    this.websocket.onopen = () => {
+      console.log('websocket opened');
+      console.log('Sending websocket message ', message);
+      this.websocket.send(JSON.stringify(message));
+    };
+    this.websocket.onmessage = this.handleIncomingMessage();
+    this.websocket.onclose = () => {
+      console.log('websocket closed');
+    };
+  }
+
+  // TODO switch to use WsMessage
+  getNextQuestion(message: WsMessage) {
     const websocketMessage: SendQuizMessage = {
       type: this.questionNumber >= this.maxQuestions ? QuizMessageType.Summary : QuizMessageType.Question,
       handle: this.currentHandle,
       message: this.questionNumber as any
     };
-    console.log('Sending websocket message ', websocketMessage);
-    this.websocket.send(JSON.stringify(websocketMessage));
+
+    console.log('Sending websocket message ', message);
+    this.websocket.send(JSON.stringify(message));
     if (this.questionNumber >= this.maxQuestions) {
       this.router.navigate(['complete']);
     }
@@ -149,9 +168,12 @@ export class QuizService {
     this.websocket.send(JSON.stringify(websocketMessage));
   }
 
-  startGame() {
+  startGame(message: WsMessage) {
     this.questionNumber = 0;
-    this.router.navigate(['start']);
+    this.router.navigate(['start', message.room_code, message.contestant_name]);
+
+    console.log('Sending websocket message ', message);
+    this.websocket.send(JSON.stringify(message));
   }
 
   getCurrentQuestion() {
@@ -232,11 +254,13 @@ export class QuizMessage {
 }
 
 export enum QuizMessageType {
+  Message,
   NewRoom,
+  NewContestant,
   Question,
   Result,
   Summary,
-  Message
+  
 }
 
 export class UserScores {

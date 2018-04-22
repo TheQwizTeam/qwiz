@@ -14,8 +14,7 @@
       <mat-grid-tile class="new-room-tile clickable-tile" colspan="2" rowspan="2">
         
         <div class="right-buttons">
-          <!--button *ngIf="canStartGame()" md-button (click)="startGame()">Start Game</button-->
-          <button md-button (click)="startGame()">Start Game</button>
+          <button *ngIf="canStartGame()" md-button (click)="startGame()">Start Game</button>
         </div>
       </mat-grid-tile>
 

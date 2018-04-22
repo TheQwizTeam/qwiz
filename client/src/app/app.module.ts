@@ -27,11 +27,11 @@ export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'newroom', component: NewRoomComponent },
   { path: 'waiting/:room/:handle', component: WaitingComponent },
-  { path: 'start', component: StartGameComponent, canActivate: [LoggedInGuard] },
-  { path: 'question', component: QuestionComponent, canActivate: [LoggedInGuard] },
-  { path: 'outcome', component: OutcomePageComponent, canActivate: [LoggedInGuard] },
-  { path: 'summary', component: SummaryPageComponent, canActivate: [LoggedInGuard] },
-  { path: 'complete', component: CompleteComponent, canActivate: [LoggedInGuard] },
+  { path: 'start/:room/:handle', component: StartGameComponent },
+  { path: 'question/:room/:handle', component: QuestionComponent },
+  { path: 'outcome', component: OutcomePageComponent },
+  { path: 'summary', component: SummaryPageComponent },
+  { path: 'complete', component: CompleteComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full' }
 ];
 
