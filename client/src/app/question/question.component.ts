@@ -15,8 +15,7 @@ export class QuestionComponent implements OnInit {
   constructor(private quizService: QuizService) { }
 
   ngOnInit() {
-    this.question = this.quizService.getCurrentQuestion();
-    this.answers = this.quizService.getAnswers();
+    // TODO Get Current Question
   }
 
   submitAnswer(answer: string) {
