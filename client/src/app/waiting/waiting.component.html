@@ -3,19 +3,22 @@
 
     
     <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile class="title-tile" colspan="4" rowspan="1">
+      <mat-grid-tile class="title-tile" colspan="4" rowspan="1" (click)="newroom()">
           <h1 class="title">Qwiz</h1>
       </mat-grid-tile>
 
-      <mat-grid-tile class="new-room-tile clickable-tile" colspan="2" rowspan="2">
-        <h1 class="title">{{roomName}}</h1>
+      <mat-grid-tile class="secondary-medium-tile clickable-tile" colspan="2" rowspan="4">
+        <div>
+            <h1 class="title">Room code: {{roomName}}</h1>
+        </div>
       </mat-grid-tile>
 
-      <mat-grid-tile class="new-room-tile clickable-tile" colspan="2" rowspan="2">
-        
-        <div class="right-buttons">
-          <button *ngIf="canStartGame()" md-button (click)="startGame()">Start Game</button>
-        </div>
+      <mat-grid-tile class="secondary-dark-tile" colspan="2" rowspan="4" (click)="startGame()">
+        <h1 class="title">start game</h1>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="secondary-darkest-tile clickable-tile" colspan="4" rowspan="1">
+          <h1 class="title">lobby</h1>
       </mat-grid-tile>
 
     </mat-grid-list>

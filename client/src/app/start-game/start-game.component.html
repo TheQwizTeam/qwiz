@@ -1,7 +1,25 @@
 <div class="background responsive-padding">
-  <div class="container">
-    <md-card>
-      <md-card-title>Game starting in {{countDown}}</md-card-title>
-    </md-card>
+    <div class="container">
+  
+      
+      <mat-grid-list cols="4" rowHeight="100px">
+        <mat-grid-tile class="title-tile" colspan="4" rowspan="1" (click)="newroom()">
+            <h1 class="title">Qwiz</h1>
+        </mat-grid-tile>
+  
+        <mat-grid-tile class="secondary-medium-tile clickable-tile" colspan="2" rowspan="4">
+          <div>
+              <h1 class="title">Quiz starting in:</h1>
+          </div>
+        </mat-grid-tile>
+  
+        <mat-grid-tile class="secondary-dark-tile countdown-tile" colspan="2" rowspan="4">
+          <h1 class="countdown">{{countDown}}</h1>
+        </mat-grid-tile>
+  
+        <mat-grid-tile class="secondary-darkest-tile clickable-tile" colspan="4" rowspan="1">
+        </mat-grid-tile>
+  
+      </mat-grid-list>
+    </div>
   </div>
-</div>

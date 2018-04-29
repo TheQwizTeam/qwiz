@@ -52,3 +52,61 @@ body {
     width: 1170px;
   }
 }
+
+.clickable-tile :hover {
+  cursor: pointer;
+}
+
+.primary-lightest-tile {
+  background-color: #03a9f4;
+  color: whitesmoke;
+}
+
+.primary-light-tile{
+  background-color: #039be5;
+  color: whitesmoke;
+}
+
+.primary-medium-tile {
+  background-color: #0288d1;
+  color: whitesmoke;
+}
+
+.primary-dark-tile {
+  background-color: #0277bd;
+  color: whitesmoke;
+}
+
+.primary-darkest-tile {
+  background-color: #01579b;
+  color: whitesmoke;
+}
+
+.secondary-lightest-tile {
+  background-color: #ffeb3b;
+  color: black;
+}
+
+.secondary-light-tile {
+  background-color: #fdd835;
+  color: black;
+}
+
+.secondary-medium-tile {
+  background-color: #fbc02d;
+  color: black;
+}
+
+.secondary-dark-tile {
+  background-color: #f9a825;
+  color: black;
+}
+
+.secondary-darkest-tile {
+  background-color: #f57f17;
+  color: black;
+}
+
+.title-tile {
+  background-color: #181918;
+}

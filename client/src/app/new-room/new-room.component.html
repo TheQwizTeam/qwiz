@@ -6,44 +6,49 @@
  
       <mat-grid-list cols="4" rowHeight="100px">
         
-              <mat-grid-tile class="title-tile" colspan="4" rowspan="1" (click)="home()">
-                <h1 class="title">Qwiz</h1>
-              </mat-grid-tile>
+        <mat-grid-tile class="title-tile" colspan="4" rowspan="1" (click)="home()">
+          <h1 class="title">Qwiz</h1>
+        </mat-grid-tile>
 
-        <mat-grid-tile class="new-room-tile" colspan="2" rowspan="4">
+        <mat-grid-tile class="primary-lightest-tile" colspan="2" rowspan="1">
           
-            <h1 class="create room"></h1>
             <div class="example-container">
               <mat-form-field>
                 <input matInput placeholder="room name" formControlName="roomName" />
               </mat-form-field>
             </div>
-            <br />
-            <div class="example-container">
-              <mat-form-field>
-                <input matInput placeholder="username" formControlName="username" />
-              </mat-form-field>
-            </div>
         </mat-grid-tile>
 
 
-        <mat-grid-tile class="new-room-tile" colspan="2" rowspan="2">
-          <h1 class="title">topic</h1>
-          <br />
+      <mat-grid-tile class="primary-darkest-tile" colspan="2" rowspan="4">
+        <button mat-raised-button color="accent" type="submit">create</button>
+      </mat-grid-tile>
+
+        <mat-grid-tile class="primary-medium-tile" colspan="2" rowspan="1">
+          <div class="example-container">
+            <mat-form-field>
+              <input matInput placeholder="username" formControlName="username" />
+            </mat-form-field>
+          </div>
+      </mat-grid-tile>
+
+
+        <mat-grid-tile class="secondary-medium-tile" colspan="2" rowspan="1">
           <mat-form-field>
               <mat-select placeholder="topic" formControlName="topic">
                 <mat-option *ngFor="let tag of tags" value="{{tag.text}}">{{tag.text}}</mat-option>
               </mat-select>
             </mat-form-field>
-
-            <mat-form-field>
-              <input matInput placeholder="number of questions" formControlName="numberOfQuestions" />
-            </mat-form-field>
-
       </mat-grid-tile>
-      <mat-grid-tile class="login-tile clickable-tile" colspan="2" rowspan="2"></mat-grid-tile>
-      <mat-grid-tile class="about-tile clickable-tile" colspan="4" rowspan="1">
-          <button mat-raised-button color="accent" type="submit">create</button>
+
+      <mat-grid-tile class="secondary-dark-tile" colspan="2" rowspan="1">
+          <mat-form-field>
+            <input matInput placeholder="number of questions" formControlName="numberOfQuestions" />
+          </mat-form-field>
+        </mat-grid-tile>
+
+      <mat-grid-tile class="secondary-lightest-tile clickable-tile" colspan="4" rowspan="1">
+          
       </mat-grid-tile>
     </mat-grid-list>
     </form>
