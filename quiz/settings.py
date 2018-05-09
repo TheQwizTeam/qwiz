@@ -78,8 +78,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'quiz.wsgi.application'
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -94,13 +92,13 @@ DATABASES['default'].update(db_from_env)
 # Channels
 # https://channels.readthedocs.io/
 # Configuring channel backend to asgi redis (default on localhost:6379)
+ASGI_APPLICATION = 'quiz.routing.application'
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
-        "ROUTING": "quiz.routing.channel_routing",
     },
 }
 
