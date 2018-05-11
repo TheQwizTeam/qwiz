@@ -1,4 +1,3 @@
-import re
 import json
 import logging
 from channels import Group, Channel
