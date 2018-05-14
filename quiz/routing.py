@@ -1,8 +1,15 @@
-from channels.staticfiles import StaticFilesConsumer
+''' from channels.staticfiles import StaticFilesConsumer
 from .consumers import ws_connect, ws_receive, ws_disconnect, new_contestant, start_quiz, submit_answer
-from channels import include, route
+from channels import include, route '''
 
-# Although we could, there is no path matching on these routes; instead we rely
+from django.conf.urls import url
+from . import consumers
+
+websocket_urlpatterns = [
+    url(r'^ws/(?P<room_name>[^/]+)/$', consumers.QwizConsumer),
+]
+
+''' # Although we could, there is no path matching on these routes; instead we rely
 # on the matching from the top-level routing.
 websocket_routing = [
     # This makes Django serve static files from settings.STATIC_URL, similar
@@ -28,4 +35,4 @@ channel_routing = [
     route("quiz.receive", start_quiz, command="^start_quiz$"),
     route("quiz.receive", submit_answer, command="^submit_answer$"),
     include("quiz.routing.websocket_routing"),
-]
+] '''

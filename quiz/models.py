@@ -5,7 +5,7 @@ import string
 import random
 import json
 
-from channels import Group
+#from channels import Group
 from django.db import models, transaction, IntegrityError
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -132,7 +132,7 @@ class Room(models.Model):
             "command": "contestant_list",
             "contestants":  [contestant.handle for contestant in self.contestant_set.all()]
         }
-        Group('quiz-' + self.code).send({'text': json.dumps(message)})
+        #self.channel_layer.group_send('quiz-' + self.code).send({'text': json.dumps(message)})
 
     def publish_quiz_start(self):
         """
@@ -141,7 +141,7 @@ class Room(models.Model):
         message = {
             "command": "quiz_starting"
         }
-        Group('quiz-' + self.code).send({'text': json.dumps(message)})
+        #Group('quiz-' + self.code).send({'text': json.dumps(message)})
 
 
 class Contestant(models.Model):
