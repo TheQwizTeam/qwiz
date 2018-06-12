@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { WsMessage } from '../models/ws-message';
 import { QuizService } from '../quiz-service/quiz.service';
+
 
 @Component({
   selector: 'app-outcome-page',
@@ -25,7 +27,9 @@ export class OutcomePageComponent implements OnInit {
   }
 
   nextQuestion() {
-    this.quizService.getNextQuestion();
+    // TODO sort this message
+    var message = new WsMessage("", "", "");
+    this.quizService.getNextQuestion(message);
   }
 
   testSummaryResponse() {

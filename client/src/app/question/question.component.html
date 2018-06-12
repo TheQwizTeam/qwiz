@@ -1,11 +1,36 @@
 <div class="background responsive-padding">
-  <div class="container">
-    <md-card>
-      <md-card-title>Question</md-card-title>
-      <md-card-content>
-        {{question}}
-        <button *ngFor="let answer of answers" md-button (click)="submitAnswer(answer)" class="answer-button">{{answer}}</button>
-      </md-card-content>
-    </md-card>
+    <div class="container">
+  
+      <mat-grid-list cols="4" rowHeight="100px">
+        <mat-grid-tile class="title-tile" colspan="4" rowspan="1">
+            <h1 class="title">Qwiz</h1>
+        </mat-grid-tile>
+  
+        <mat-grid-tile class="primary-lightest-tile" colspan="4" rowspan="1">
+          <div>
+              <h4>Question Text</h4>
+          </div>
+        </mat-grid-tile>
+  
+        <mat-grid-tile class="primary-light-tile" colspan="2" rowspan="2">
+          <h4 class="countdown">Answer A</h4>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="primary-medium-tile" colspan="2" rowspan="2">
+          <h4 class="countdown">Answer B</h4>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="primary-dark-tile" colspan="2" rowspan="2">
+          <h4 class="countdown">Answer C</h4>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="primary-darkest-tile" colspan="2" rowspan="2">
+          <h4 class="countdown">Answer D</h4>
+        </mat-grid-tile>
+  
+        <mat-grid-tile class="secondary-light-tile clickable-tile" colspan="4" rowspan="1">
+        </mat-grid-tile>
+  
+      </mat-grid-list>
+    </div>
   </div>
-</div>

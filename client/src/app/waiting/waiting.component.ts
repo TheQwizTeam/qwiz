@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { QuizService } from '../quiz-service/quiz.service';
+import { WsMessage } from '../models/ws-message';
 
 @Component({
   selector: 'app-waiting',
@@ -11,23 +12,26 @@ import { QuizService } from '../quiz-service/quiz.service';
 export class WaitingComponent implements OnInit {
 
   roomName: string;
+  contestantName: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private quizService: QuizService
-  ) {
-    this.roomName = 'Room Name';
+  )
+  {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.roomName = params['room'];
+      this.contestantName = params['handle']
     });
-  }
 
-  sendMessage() {
-    this.quizService.sendMessage('message');
+    this.quizService.open({ roomName: this.roomName, username: this.contestantName });
+    var message = new WsMessage('new_contestant', this.roomName, this.contestantName);
+    console.log(message);
+    this.quizService.registerWithRoom(message);
   }
 
   canStartGame(): boolean {
@@ -35,7 +39,8 @@ export class WaitingComponent implements OnInit {
   }
 
   startGame() {
-    this.quizService.startGame();
+    var message = new WsMessage('start_game', this.roomName, this.contestantName);
+    this.quizService.startGame(message);
   }
 
   quit() {
