@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "echo 'Start'",
-    "postinstall": "ng build --output-path '../quiz/static' --base-href '/static/' && cd  ../quiz/static && mkdir ../templates && mv index.html ../templates/index.html"
+    "postinstall": "ng build --output-path '../quiz/static' --base-href '/static/' && cd  ../quiz/static && mkdir -p ../templates && mv index.html ../templates/index.html"
   },
   "engines": {
     "node": "6.11.1",
