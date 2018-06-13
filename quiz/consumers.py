@@ -14,14 +14,14 @@ log = logging.getLogger(__name__)
 @channel_session
 def ws_connect(message):
     # Log endpoint receipt of WebSocket message
-    log.debug("WebSocket message received: connect")
+    log.error("WebSocket message received: connect")
     # Accept connection
     message.reply_channel.send({"accept": True})
 
 @channel_session
 def ws_receive(message):
     # Log endpoint receipt of WebSocket message
-    log.debug("WebSocket message received: receive")
+    log.error("WebSocket message received: receive")
     # Route message to "quiz.receive" channel
     try:
         payload = json.loads(message['text'])
@@ -34,12 +34,12 @@ def ws_receive(message):
 @channel_session
 def ws_disconnect(message):
     # Log endpoint receipt of WebSocket message
-    log.debug("WebSocket message received: disconnect")
+    log.error("WebSocket message received: disconnect")
 
 @channel_session
 def new_contestant(message):
     # Log endpoint receipt of WebSocket message
-    log.debug("WebSocket message received: new_contestant")
+    log.error("WebSocket message received: new_contestant")
 
     reply_channel = message.get('reply_channel')
 
@@ -67,7 +67,7 @@ def new_contestant(message):
 @channel_session
 def start_quiz(message):
     # Log endpoint receipt of WebSocket message
-    log.debug("WebSocket message received: start_quiz")
+    log.error("WebSocket message received: start_quiz")
 
     reply_channel = message.get('reply_channel')
 
@@ -91,7 +91,7 @@ def start_quiz(message):
 @channel_session
 def submit_answer(message):
     # Log endpoint receipt of WebSocket message
-    log.debug("WebSocket message received: submit_answer")
+    log.error("WebSocket message received: submit_answer")
 
 # @channel_session
 # def ws_connect(message):
@@ -103,15 +103,15 @@ def submit_answer(message):
 #     try:
 #         prefix, room_name, handle = message['path'].decode('ascii').strip('/').split('/')
 #         if prefix != 'quiz':
-#             log.debug('invalid ws path=%s', message['path'])
+#             log.error('invalid ws path=%s', message['path'])
 #             return
 #     except ValueError:
-#         log.debug('invalid ws path=%s', message['path'])
+#         log.error('invalid ws path=%s', message['path'])
 #         return
 #
 #     room, created = Room.objects.get_or_create(name=room_name)
 #
-#     log.debug('qwiz connect room_name=%s handle=%s client=%s:%s',
+#     log.error('qwiz connect room_name=%s handle=%s client=%s:%s',
 #         room.name, handle, message['client'][0], message['client'][1])
 #
 #     contestant = room.contestant_set.get_or_create(handle=handle)
@@ -129,7 +129,7 @@ def submit_answer(message):
 #     try:
 #         room_name = message.channel_session['room_name']
 #     except KeyError:
-#         log.debug('no room in channel_session')
+#         log.error('no room in channel_session')
 #         return
 #
 #     # Parse out a chat message from the content text, bailing if it doesn't
@@ -137,15 +137,15 @@ def submit_answer(message):
 #     try:
 #         data = json.loads(message['text'])
 #     except ValueError:
-#         log.debug("ws message isn't json text=%s", text)
+#         log.error("ws message isn't json text=%s", text)
 #         return
 #
 #     if set(data.keys()) != set(('type', 'handle', 'message')):
-#         log.debug("ws message unexpected format data=%s", data)
+#         log.error("ws message unexpected format data=%s", data)
 #         return
 #
 #     if data:
-#         log.debug('chat message room_name=%s type=%s handle=%s message=%s',
+#         log.error('chat message room_name=%s type=%s handle=%s message=%s',
 #             room_name, data['type'], data['handle'], data['message'])
 #
 #         type = data['type']
@@ -154,9 +154,9 @@ def submit_answer(message):
 #         response_data = {}
 #
 #         if type == 0:
-#             log.debug('NEW ROOM')
+#             log.error('NEW ROOM')
 #         elif type == 1:
-#             log.debug('QUESTION')
+#             log.error('QUESTION')
 #             q = Question.objects.filter(room__name=room_name)[data['message']].questions
 #             response_data['type'] = type
 #             response_data['question_text'] = q.question_text
@@ -165,7 +165,7 @@ def submit_answer(message):
 #             response_data['incorrect_answer_2'] = q.incorrect_answer_2
 #             response_data['incorrect_answer_3'] = q.incorrect_answer_3
 #         elif type == 2:
-#             log.debug('RESULT')
+#             log.error('RESULT')
 #             if (data['message'] == 'correct'):
 #                 contestant = Contestant.objects.get(handle=contestantHandle)
 #                 contestant.complete=0
@@ -173,7 +173,7 @@ def submit_answer(message):
 #                 contestant.save()
 #             response_data['type'] = type
 #         elif type == 3:
-#             log.debug('SUMMARY')
+#             log.error('SUMMARY')
 #             contestants = []
 #             finisher = Contestant.objects.get(handle=contestantHandle)
 #             finisher.complete = 1;
