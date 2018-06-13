@@ -56,6 +56,11 @@ class Question(models.Model):
         """
         return self.question_text
 
+    def shuffled_answers(self):
+        answers = [self.correct_answer, self.incorrect_answer_1, self.incorrect_answer_2, self.incorrect_answer_3]
+        random.shuffle(answers)
+        return answers
+
 
 class Room(models.Model):
     """
@@ -132,7 +137,7 @@ class Room(models.Model):
 
     def publish_contestant_list(self):
         """
-        Send a 'contestant_list' message from server to client.
+        Send a 'contestant_list' message from server to clients.
         """
         message = {
             "command": "contestant_list",
@@ -142,12 +147,24 @@ class Room(models.Model):
 
     def publish_quiz_start(self):
         """
-        Send a 'quiz_starting' message from server to client.
+        Send a 'quiz_starting' message from server to clients.
         """
         message = {
             "command": "quiz_starting"
         }
         send_message(self.group_name(), message)
+
+    def publish_question(self, delay=None):
+        """
+        Get the next question, and send 'question' message from server to clients.
+        """
+        question = self.questions.first()
+        message = {
+            "command": "question",
+            "question": question.question_text,
+            "answers": question.shuffled_answers()
+        }
+        send_message(self.group_name(), message, delay=delay)
 
 
 class Contestant(models.Model):
