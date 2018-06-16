@@ -112,7 +112,7 @@ class Room(models.Model):
         # supplied query, up to the number of questions requested
         questions = list(Question.objects.filter(q).distinct('pk'))
         random.shuffle(questions)
-        self.questions.set(questions[:num_questions])
+        [RoomQuestions(room=self, question=question).save() for question in questions[:num_questions]]
 
         # Commit questions to the room
         self.save()
