@@ -4,12 +4,18 @@ Qwiz Models.
 import string
 import random
 
+from enum import Enum
+
 from django.db import models, transaction, IntegrityError
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 
 from quiz.producers import send_message
 
+class QuestionState(Enum):
+    PENDING = "Pending"
+    CURRENT = "Current"
+    COMPLETE = "Complete"
 
 class Tag(models.Model):
     """
@@ -165,6 +171,20 @@ class Room(models.Model):
             "answers": question.shuffled_answers()
         }
         send_message(self.group_name(), message, delay=delay)
+
+
+class RoomQuestions(models.Model):
+    room = models.ForeignKey(Room, models.DO_NOTHING)
+    question = models.ForeignKey(Question, models.DO_NOTHING)
+    state = models.CharField(
+        max_length=10,
+        choices=[(state, state.value) for state in QuestionState],
+        default=QuestionState.PENDING
+    )
+
+    class Meta:
+        db_table = 'quiz_room_questions'
+        unique_together = (('room', 'question'),)
 
 
 class Contestant(models.Model):
