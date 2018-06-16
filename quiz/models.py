@@ -178,8 +178,8 @@ class RoomQuestions(models.Model):
     question = models.ForeignKey(Question, models.DO_NOTHING)
     state = models.CharField(
         max_length=10,
-        choices=[(state, state.value) for state in QuestionState],
-        default=QuestionState.PENDING
+        choices=[(state.name, state.value) for state in QuestionState],
+        default=QuestionState.PENDING.name
     )
 
     class Meta:
