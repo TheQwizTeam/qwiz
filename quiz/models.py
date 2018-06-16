@@ -72,7 +72,7 @@ class Room(models.Model):
     # Unique room code
     code = models.SlugField(unique=True, max_length=5)
     # Variable number of questions in a room
-    questions = models.ManyToManyField(Question)
+    # questions = models.ManyToManyField(Question, through='RoomQuestions')
 
     def __str__(self):
         """
