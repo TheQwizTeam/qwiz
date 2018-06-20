@@ -172,6 +172,22 @@ class Room(models.Model):
         }
         send_message(self.group_name(), message, delay=delay)
 
+    def publish_status(self):
+        """
+        Get the next question, and send 'question' message from server to clients.
+        """
+        message = {
+            "command": "status",
+            "answered": [self.status(contestant) for contestant in self.contestant_set.all()]
+        }
+        send_message(self.group_name(), message)
+
+    def status(self, contestant):
+        status = {
+            "contestant": contestant.handle,
+            "answered": True if contestant.latest_points is not None else False,
+        }
+        return status
 
 class RoomQuestions(models.Model):
     room = models.ForeignKey(Room, models.DO_NOTHING)
@@ -198,8 +214,10 @@ class Contestant(models.Model):
     handle = models.CharField(max_length=200)
     # Score
     score = models.IntegerField(default=0)
-    # has contestant completed
+    # Has contestant completed
     complete = models.BooleanField(default=False)
+    # Score for current question, null if unanswered, 0 if incorrect, positive if correct
+    latest_points = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         """
