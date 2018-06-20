@@ -10,6 +10,7 @@ from quiz.producers import send_response, StatusCode
 from .models import Room, Question, Contestant
 
 log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
 
 @channel_session
 def ws_connect(message):
@@ -83,6 +84,9 @@ def start_quiz(message):
 
     # Send a broadcast message to all contestants to say that the quiz is starting
     room.publish_quiz_start()
+
+    # Send a broadcast message to all contestants with the first question
+    # room.publish_question()
 
 
 @channel_session

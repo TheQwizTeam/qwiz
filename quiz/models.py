@@ -4,12 +4,18 @@ Qwiz Models.
 import string
 import random
 
+from enum import Enum
+
 from django.db import models, transaction, IntegrityError
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 
 from quiz.producers import send_message
 
+class QuestionState(Enum):
+    PENDING = "Pending"
+    CURRENT = "Current"
+    COMPLETE = "Complete"
 
 class Tag(models.Model):
     """
@@ -56,6 +62,11 @@ class Question(models.Model):
         """
         return self.question_text
 
+    def shuffled_answers(self):
+        answers = [self.correct_answer, self.incorrect_answer_1, self.incorrect_answer_2, self.incorrect_answer_3]
+        random.shuffle(answers)
+        return answers
+
 
 class Room(models.Model):
     """
@@ -67,7 +78,7 @@ class Room(models.Model):
     # Unique room code
     code = models.SlugField(unique=True, max_length=5)
     # Variable number of questions in a room
-    questions = models.ManyToManyField(Question)
+    questions = models.ManyToManyField(Question, through='RoomQuestions')
 
     def __str__(self):
         """
@@ -101,7 +112,7 @@ class Room(models.Model):
         # supplied query, up to the number of questions requested
         questions = list(Question.objects.filter(q).distinct('pk'))
         random.shuffle(questions)
-        self.questions.set(questions[:num_questions])
+        [RoomQuestions(room=self, question=question).save() for question in questions[:num_questions]]
 
         # Commit questions to the room
         self.save()
@@ -132,7 +143,7 @@ class Room(models.Model):
 
     def publish_contestant_list(self):
         """
-        Send a 'contestant_list' message from server to client.
+        Send a 'contestant_list' message from server to clients.
         """
         message = {
             "command": "contestant_list",
@@ -142,12 +153,38 @@ class Room(models.Model):
 
     def publish_quiz_start(self):
         """
-        Send a 'quiz_starting' message from server to client.
+        Send a 'quiz_starting' message from server to clients.
         """
         message = {
             "command": "quiz_starting"
         }
         send_message(self.group_name(), message)
+
+    def publish_question(self, delay=None):
+        """
+        Get the next question, and send 'question' message from server to clients.
+        """
+        question = self.questions.first()
+        message = {
+            "command": "question",
+            "question": question.question_text,
+            "answers": question.shuffled_answers()
+        }
+        send_message(self.group_name(), message, delay=delay)
+
+
+class RoomQuestions(models.Model):
+    room = models.ForeignKey(Room, models.DO_NOTHING)
+    question = models.ForeignKey(Question, models.DO_NOTHING)
+    state = models.CharField(
+        max_length=10,
+        choices=[(state.name, state.value) for state in QuestionState],
+        default=QuestionState.PENDING.name
+    )
+
+    class Meta:
+        db_table = 'quiz_room_questions'
+        unique_together = (('room', 'question'),)
 
 
 class Contestant(models.Model):
