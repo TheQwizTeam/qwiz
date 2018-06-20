@@ -16,14 +16,10 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Secret key is stored in the env
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'cxr)trpi!bbviy%l!%x+582izq86dgw2s5g^hu!!fok6l%l32u'
-
-# SECURITY WARNING: don't run with debug turned on in production!
+# TODO: Turn this off in the future
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -82,9 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'quiz.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
         'default': dj_database_url.config(default="postgres:///qwiz", conn_max_age=500)
