@@ -189,13 +189,14 @@ class Room(models.Model):
         }
         return status
 
+
 class RoomQuestions(models.Model):
     room = models.ForeignKey(Room, models.DO_NOTHING)
     question = models.ForeignKey(Question, models.DO_NOTHING)
     state = models.CharField(
         max_length=10,
         choices=[(state.name, state.value) for state in QuestionState],
-        default=QuestionState.PENDING.name
+        default=QuestionState.PENDING.value
     )
 
     class Meta:
