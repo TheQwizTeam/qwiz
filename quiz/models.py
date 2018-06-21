@@ -160,11 +160,27 @@ class Room(models.Model):
         }
         send_message(self.group_name(), message)
 
-    def publish_question(self, delay=None):
+    def publish_next_question(self, delay=None):
         """
-        Get the next question, and send 'question' message from server to clients.
+        Get the next question, moving from pending to current
         """
-        question = self.questions.first()
+        # Get the next pending question
+        question = self.questions.filter(roomquestions__state=QuestionState.PENDING.value).first()
+        # Update the question to current
+        room_question = self.roomquestions_set.get(question=question.id)
+        room_question.state = QuestionState.CURRENT.value
+        room_question.save()
+        # Publish question
+        self.publish_question(question, delay)
+
+    def publish_question(self, question=None, delay=None):
+        """
+        Send a 'question' message from server to clients.
+        """
+        # If no question was specified, get the current question
+        if question is None:
+            question = self.questions.filter(roomquestions__state=QuestionState.CURRENT.value).first()
+        # Publish question
         message = {
             "command": "question",
             "question": question.question_text,
