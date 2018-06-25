@@ -10,7 +10,9 @@ from django.db import models, transaction, IntegrityError
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 
+from quiz.future import FutureTask, schedule
 from quiz.producers import send_message
+
 
 class QuestionState(Enum):
     PENDING = "Pending"
@@ -187,6 +189,8 @@ class Room(models.Model):
             "answers": question.shuffled_answers()
         }
         send_message(self.group_name(), message, delay=delay)
+        # Schedule first room summary
+        schedule(FutureTask.ROOM_PUBLISH_SUMMARY, room_id=self.id, delay=10+delay)
 
     def publish_status(self):
         """
