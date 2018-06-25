@@ -10,7 +10,7 @@ log.setLevel(logging.INFO)
 
 @unique
 class FutureTask(IntEnum):
-    ROOM_PUBLISH_SUMMARY = 0
+    ROOM_PUBLISH_STATUS = 0
 
     @classmethod
     def has_value(cls, value):
@@ -26,10 +26,10 @@ def future(future_task, **kwargs):
     if not FutureTask.has_value(future_task):
         raise TypeError("Unknown task {}".format(future_task))
 
-    if future_task == FutureTask.ROOM_PUBLISH_SUMMARY.value:
-        future_publish_summary(**kwargs)
+    if future_task == FutureTask.ROOM_PUBLISH_STATUS.value:
+        future_publish_status(**kwargs)
 
 
-def future_publish_summary(room_id):
+def future_publish_status(room_id):
     room = quiz.models.Room.objects.get(pk=room_id)
     room.publish_status()

@@ -190,7 +190,7 @@ class Room(models.Model):
         }
         send_message(self.group_name(), message, delay=delay)
         # Schedule first room summary
-        schedule(FutureTask.ROOM_PUBLISH_SUMMARY, room_id=self.id, delay=10+delay)
+        schedule(FutureTask.ROOM_PUBLISH_STATUS, room_id=self.id, delay=10+delay)
 
     def publish_status(self):
         """
