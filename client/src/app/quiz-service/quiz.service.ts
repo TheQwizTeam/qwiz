@@ -18,6 +18,7 @@ export class QuizService {
   scores;
   maxQuestions = 6;
   apiUrl: string;
+  contestants: string[];
 
   constructor(private router: Router) {
     this.apiUrl = environment.quizServiceUrl;
@@ -72,7 +73,7 @@ export class QuizService {
 
       switch (response.command) {
         case "contestant_list":
-          console.log('Contestant_List');
+          this.contestants = response.contestants;
           break;
         // case 1:
         //   console.log('Questions');

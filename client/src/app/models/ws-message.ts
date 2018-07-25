@@ -9,4 +9,5 @@ export class WsMessage {
     command: string;
     room_code: string;
     contestant_name: string;
+    contestants: string[];
 }
