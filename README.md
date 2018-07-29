@@ -132,14 +132,24 @@ pip freeze
 
 The Django application determines the database URL from an environment variable: `DATABASE_URL`. If this environment variable is not available, Django will default to a locally hosted database called "qwiz".
 
-This databse value is utilized in the Django application's settings module (`filesettings.py`).
+This database value is utilized in the Django application's settings module (`settings.py`).
 
 Heroku provides an optional PostgreSQL server add-on per application. When this addon has been configured the corresponding `DATABASE_URL` environment variable will be automatically configured within the application's environment, overriding the default value. You can use this URL directly, if you know it, or create the default database on your local PostgreSQL server. The latter is recommended.
 
-Create the database for Qwiz from the PostgreSQL interactive terminal, psql.
+In Linux, you will have to add a role for your username and give them superuser permissions:
 
+```bash
+$ sudo -u postgres createuser --interactive
+Enter name of role to add: pgcrooks
+Shall the new role be a superuser? (y/n) y
 ```
-CREATE DATABASE "qwiz";.
+
+Create the database for Qwiz from the PostgreSQL interactive terminal, `psql`. 
+
+```bash
+$ sudo -u postgres psql
+CREATE DATABASE "qwiz";
+\q
 ```
 
 Apply the databse migrations.
@@ -154,7 +164,7 @@ Create a superuser account; a user (added to the user table within your new data
 python manage.py createsuperuser
 ```
 
-**N.B. You may wish to give your local database a different name, host it somewhere else, use a different port etc. If you wish to customize your databse in any way don't forget to update your environment variable appropriately. The connection URI is formatted as follows:**
+**N.B. You may wish to give your local database a different name, host it somewhere else, use a different port etc. If you wish to customize your database in any way don't forget to update your environment variable appropriately. The connection URI is formatted as follows:**
 
 ```bash
 DATABASE_URL=postgresql://[user[:password]@][netloc][:port][/dbname]
@@ -186,7 +196,7 @@ Finally, configure Heroku to connect this repository to the the Heroku applicati
 Simply add the Heroku git remote to unlock the power of the Heroku CLI.
 
 ```
-git remote add heroku https://git.heroku.com/quiz-monster.git
+git remote add heroku https://git.heroku.com/the-qwiz-engine.git
 ````
 
 ## Local Deployment
