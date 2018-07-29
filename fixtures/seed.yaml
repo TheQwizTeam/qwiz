@@ -1,0 +1,54 @@
+- model: quiz.tag
+  pk: 1
+  fields: {text: chrismas}
+- model: quiz.tag
+  pk: 2
+  fields: {text: music}
+- model: quiz.question
+  pk: 1
+  fields:
+    question_text: Which country gifts the Christmas tree that is placed at the Trafalgar
+      Square in London, according to Christmas tradition?
+    correct_answer: Norway
+    incorrect_answer_1: Sweden
+    incorrect_answer_2: Canada
+    incorrect_answer_3: Finland
+    tags: [1]
+- model: quiz.question
+  pk: 2
+  fields:
+    question_text: How many ghosts came to visit scrooge on Christmas Eve
+    correct_answer: '4'
+    incorrect_answer_1: '2'
+    incorrect_answer_2: '3'
+    incorrect_answer_3: '5'
+    tags: [1]
+- model: quiz.question
+  pk: 3
+  fields:
+    question_text: Which record was a Christmas No.1 in 1975 and 1991?
+    correct_answer: Bohemian Rhapsody
+    incorrect_answer_1: Do They Know It's Christmas?
+    incorrect_answer_2: Merry Christmas Everyone
+    incorrect_answer_3: I Will Always Love You
+    tags: [1, 2]
+- model: quiz.question
+  pk: 4
+  fields:
+    question_text: Which country can be credited with the creation of the Christmas
+      beverage, eggnog?
+    correct_answer: England
+    incorrect_answer_1: Germany
+    incorrect_answer_2: Austria
+    incorrect_answer_3: France
+    tags: [1]
+- model: quiz.question
+  pk: 5
+  fields:
+    question_text: The traditional English 'Father Christmas' was not dressed in red.
+      What colour did he wear?
+    correct_answer: Green
+    incorrect_answer_1: Blue
+    incorrect_answer_2: Purple
+    incorrect_answer_3: Black
+    tags: [1]
