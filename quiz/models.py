@@ -3,6 +3,7 @@ Qwiz Models.
 """
 import string
 import random
+import logging
 
 from enum import Enum
 
@@ -13,6 +14,8 @@ from django.db.models import Q
 from quiz.future import FutureTask, schedule
 from quiz.producers import send_message
 
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
 
 class QuestionState(Enum):
     PENDING = "Pending"
@@ -166,8 +169,13 @@ class Room(models.Model):
         """
         Get the next question, moving from pending to current
         """
-        # Get the next pending question
-        question = self.questions.filter(roomquestions__state=QuestionState.PENDING.value).first()
+        # Sanity check to ensure there is a question remaining
+        questions = self.questions.filter(roomquestions__state=QuestionState.PENDING.value)
+        if (questions.count() == 0):
+            log.error("Room's questions depleted.")
+            return
+        # Get a question
+        question = questions.first()
         # Update the question to current
         room_question = self.roomquestions_set.get(question=question.id)
         room_question.state = QuestionState.CURRENT.value
@@ -190,7 +198,7 @@ class Room(models.Model):
         }
         send_message(self.group_name(), message, delay=delay)
         # Schedule first room summary
-        schedule(FutureTask.ROOM_PUBLISH_STATUS, room_id=self.id, delay=10+delay)
+        # schedule(FutureTask.ROOM_PUBLISH_STATUS, room_id=self.id, delay=10+delay)
 
     def publish_status(self):
         """

@@ -86,7 +86,7 @@ def start_quiz(message):
     room.publish_quiz_start()
 
     # Send a broadcast message to all contestants with the first question
-    # room.publish_question()
+    room.publish_next_question()
 
 
 @channel_session
