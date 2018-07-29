@@ -158,6 +158,12 @@ Apply the databse migrations.
 python manage.py migrate
 ```
 
+Initialize database, specifically tag and question tables) with sample data.
+
+```
+python  manage.py loaddata fixtures/seed.yaml
+```
+
 Create a superuser account; a user (added to the user table within your new database) that will have all permissions within this Django project.
 
 ```bash
