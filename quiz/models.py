@@ -149,7 +149,7 @@ class Room(models.Model):
         """
         message = {
             "command": "contestant_list",
-            "contestants":  [contestant.handle for contestant in self.contestant_set.all()]
+            "contestants":  sorted([contestant.handle for contestant in self.contestant_set.all()])
         }
         send_message(self.group_name(), message)
 

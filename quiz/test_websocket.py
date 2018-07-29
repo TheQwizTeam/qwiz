@@ -127,8 +127,7 @@ class WebSocketContestantListTests(ChannelTestCase):
         self.assertDictEqual(response, {
             'command': 'contestant_list',
             'contestants': [
-                'Jane'
-                ' Doe',
+                'Jane Doe',
                 'John Doe'
             ]
         })
