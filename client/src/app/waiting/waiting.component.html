@@ -7,18 +7,18 @@
           <h1 class="title">Qwiz</h1>
       </mat-grid-tile>
 
-      <mat-grid-tile class="secondary-medium-tile clickable-tile" colspan="2" rowspan="4">
+      <mat-grid-tile class="secondary-medium-tile clickable-tile" colspan="4" rowspan="1">
         <div>
             <h1 class="title">Room code: {{roomName}}</h1>
         </div>
       </mat-grid-tile>
 
-      <mat-grid-tile class="secondary-dark-tile" colspan="2" rowspan="4" (click)="startGame()">
-        <h1 class="title">start game</h1>
+      <mat-grid-tile class="secondary-darkest-tile clickable-tile" *ngFor="let contestant of contestants" colspan="1" rowspan="1">
+        <h3>{{contestant}}</h3>
       </mat-grid-tile>
 
-      <mat-grid-tile class="secondary-darkest-tile clickable-tile" colspan="4" rowspan="1">
-          <h1 class="title">lobby</h1>
+      <mat-grid-tile class="secondary-dark-tile" colspan="4" rowspan="1" (click)="startGame()">
+        <h1 class="title">start game</h1>
       </mat-grid-tile>
 
     </mat-grid-list>

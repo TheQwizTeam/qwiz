@@ -4,6 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../quiz-service/quiz.service';
 import { WsMessage } from '../models/ws-message';
 
+import { Observable, Subject } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import 'rxjs/add/observable/interval';
+import { QwizService } from '../qwiz-service/qwiz-service';
+
 @Component({
   selector: 'app-waiting',
   templateUrl: './waiting.component.html',
@@ -14,10 +19,14 @@ export class WaitingComponent implements OnInit {
   roomName: string;
   contestantName: string;
 
+  getContestants = Observable.timer(1000, 1000);
+  contestants: string[];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private qwizService: QwizService
   )
   {
   }
@@ -30,8 +39,12 @@ export class WaitingComponent implements OnInit {
 
     this.quizService.open({ roomName: this.roomName, username: this.contestantName });
     var message = new WsMessage('new_contestant', this.roomName, this.contestantName);
-    console.log(message);
+    
     this.quizService.registerWithRoom(message);
+        
+    this.getContestants.subscribe(tick => {
+      this.contestants = this.quizService.contestants
+    });
   }
 
   canStartGame(): boolean {
