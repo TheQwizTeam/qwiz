@@ -26,8 +26,7 @@ export class QwizService {
   getTags() : Observable<Tag[]> {
 
     let headers = new HttpHeaders();
-    headers = headers.append("Authorization", "Basic " + btoa("scott:Pa$$w0rd"));
-    headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
+    headers = headers.append("Content-Type", "application/json");
 
     return this.http.get<TagsResponse>(this.tagsUrl, { headers: headers} )
       .map(resp => resp.results)
@@ -35,7 +34,6 @@ export class QwizService {
 
   createRoom(createRoomRequest: CreateRoomRequest) : Observable<CreateRoomResponse> {
     let headers = new HttpHeaders();
-    headers = headers.append("Authorization", "Basic " + btoa("scott:Pa$$w0rd"));
     headers = headers.append("Content-Type", "application/json");
 
     console.log(createRoomRequest);
