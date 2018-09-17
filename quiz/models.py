@@ -84,6 +84,7 @@ class Room(models.Model):
     code = models.SlugField(unique=True, max_length=5)
     # Variable number of questions in a room
     questions = models.ManyToManyField(Question, through='RoomQuestions')
+    current_question_number = models.IntegerField(default=0)
 
     def __str__(self):
         """
@@ -118,6 +119,9 @@ class Room(models.Model):
         questions = list(Question.objects.filter(q).distinct('pk'))
         random.shuffle(questions)
         [RoomQuestions(room=self, question=question).save() for question in questions[:num_questions]]
+
+        # Start off on question 0
+        self.current_question_number = 0
 
         # Commit questions to the room
         self.save()
@@ -179,11 +183,15 @@ class Room(models.Model):
         # Update the question to current
         room_question = self.roomquestions_set.get(question=question.id)
         room_question.state = QuestionState.CURRENT.value
+        room_question.question_number = self.current_question_number
         room_question.save()
         # Publish question
-        self.publish_question(question, delay)
+        self.publish_question(question, room_question, delay)
 
-    def publish_question(self, question=None, delay=None):
+        # Bump the question number
+        self.current_question_number += 1
+
+    def publish_question(self, question=None, room_question=None, delay=None):
         """
         Send a 'question' message from server to clients.
         """
@@ -193,6 +201,7 @@ class Room(models.Model):
         # Publish question
         message = {
             "command": "question",
+            "question_number": room_question.question_number,
             "question": question.question_text,
             "answers": question.shuffled_answers()
         }
@@ -226,6 +235,7 @@ class RoomQuestions(models.Model):
         choices=[(state.name, state.value) for state in QuestionState],
         default=QuestionState.PENDING.value
     )
+    question_number = models.IntegerField(auto_created=True, default=0)
 
     class Meta:
         db_table = 'quiz_room_questions'
