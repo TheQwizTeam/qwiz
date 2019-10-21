@@ -20,7 +20,7 @@ django-cors-headers==2.1.0
 django-rest-swagger==2.1.2
 djangorestframework==3.7.7
 haikunator==1.0.1
-httpie==0.9.9
+httpie==1.0.3
 hyperlink==17.3.1
 idna==2.6
 incremental==17.5.0
