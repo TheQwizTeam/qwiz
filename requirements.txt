@@ -18,7 +18,7 @@ dj-database-url==0.4.0
 Django==2.0.1
 django-cors-headers==2.1.0
 django-rest-swagger==2.1.2
-djangorestframework==3.7.7
+djangorestframework==3.11.2
 haikunator==1.0.1
 httpie==0.9.9
 hyperlink==17.3.1
